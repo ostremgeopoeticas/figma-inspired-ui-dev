@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const socialIcons = [
@@ -26,24 +27,24 @@ const Footer = () => {
         <div className="flex flex-col items-start gap-6 flex-1 w-full box-border px-5 py-10">
           <nav className="flex justify-between items-center content-center gap-y-6 w-full flex-wrap" role="navigation" aria-label="Menu do rodapé">
             <div className="flex w-40 min-w-40 flex-col items-center">
-              <a href="#sobre" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
+              <Link to="/sobre" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Sobre o projeto
-              </a>
+              </Link>
             </div>
             <div className="flex w-40 min-w-40 flex-col items-center">
-              <a href="#eventos" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
+              <Link to="/eventos" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Encontros e eventos
-              </a>
+              </Link>
             </div>
             <div className="flex w-40 min-w-40 flex-col items-center">
-              <a href="#blog" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
+              <Link to="/blog" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Notícias / Blog
-              </a>
+              </Link>
             </div>
             <div className="flex w-40 min-w-40 flex-col items-center">
-              <a href="#contato" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
+              <Link to="/contato" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Contato
-              </a>
+              </Link>
             </div>
           </nav>
           <div className="flex justify-center items-center content-center gap-4 w-full flex-wrap">
