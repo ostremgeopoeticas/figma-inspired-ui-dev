@@ -7,8 +7,8 @@ const Events = () => {
     <div className="flex w-full flex-col items-start min-h-screen bg-[#FFF8F1]">
       <Header />
       
-      {/* Hero Section */}
-      <section className="w-full h-[200px] relative bg-gradient-to-r from-[#BB4514] to-[#D4561A] overflow-hidden">
+      <EventBanner />
+      {/* Hero Section with event info */}
         <img
           src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
           alt="Banner Ipatinga e Coronel Fabriciano"

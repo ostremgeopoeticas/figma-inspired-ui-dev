@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import aboutHero from '@/assets/about-hero.jpg';
 
 const About = () => {
   return (
@@ -8,15 +9,12 @@ const About = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[300px] relative bg-gradient-to-r from-[#4B5A43] to-[#6B7A63] overflow-hidden">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
-          alt="Banner sobre o projeto"
-          className="w-full h-full object-cover opacity-50"
+      <section className="relative w-full h-[400px] overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${aboutHero})` }}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-[#F6D8B8] text-5xl font-bold text-center">Sobre o projeto</h1>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
       </section>
 
       <div className="w-full max-w-4xl mx-auto px-8 py-12">

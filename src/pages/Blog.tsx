@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogCard from '@/components/BlogCard';
+import blogHero from '@/assets/blog-hero.jpg';
 
 const Blog = () => {
   const blogPosts = [

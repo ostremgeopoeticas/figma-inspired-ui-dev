@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import contactHero from '@/assets/contact-hero.jpg';
 
 const Contact = () => {
   const [formData, setFormData] = useState({

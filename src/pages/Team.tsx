@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import teamHero from '@/assets/team-hero.jpg';
 
 const Team = () => {
   const coordinator = {
@@ -57,15 +58,12 @@ const Team = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[300px] relative bg-gradient-to-r from-[#BB4514] to-[#D4561A] overflow-hidden">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
-          alt="Banner equipe"
-          className="w-full h-full object-cover opacity-50"
+      <section className="relative w-full h-[300px] overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${teamHero})` }}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-[#F6D8B8] text-5xl font-bold text-center">Equipe</h1>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
       </section>
 
       <div className="w-full max-w-6xl mx-auto px-8 py-12">
