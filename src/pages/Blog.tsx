@@ -54,7 +54,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [currentPage]);
+  }, [currentPage, postsPerPage]);
 
   // Filtrar posts por categoria
   const filteredPosts = selectedCategory === 'Todos' 

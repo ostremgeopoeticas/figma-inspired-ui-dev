@@ -7,21 +7,40 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { user, isAdmin, loading } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificar autenticação e permissões
-    if (!loading) {
-      // Se não houver usuário ou não for admin, redirecionar para a página de login
-      if (!user || !isAdmin) {
-        navigate('/admin/login');
-      }
+    console.log('ProtectedRoute check:', { user: user?.email, loading });
+    
+    // Aguardar o carregamento da autenticação
+    if (loading) {
+      console.log('Auth still loading, waiting...');
+      return;
     }
-  }, [user, isAdmin, loading, navigate]);
+    
+    // Se não tiver usuário, redirecionar para login
+    if (!user || typeof user !== 'object' || !user.email) {
+      console.log('No valid user, redirecting to login page');
+      navigate('/admin/login');
+      return;
+    }
+    
+    // Se tiver usuário, verificar se é admin
+    const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((e: string) => e.trim()) || [];
+    const isAdminUser = adminEmails.includes(user.email);
+    console.log('ProtectedRoute - User email:', user.email, 'Is admin:', isAdminUser);
+    
+    if (!isAdminUser) {
+      console.log('User is not admin, redirecting to login page');
+      navigate('/admin/login');
+      return;
+    }
+  }, [user, loading, navigate]);
 
-  // Mostrar spinner enquanto carrega
+  // Se estiver carregando, mostrar spinner
   if (loading) {
+    console.log('ProtectedRoute: Loading');
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#BB4514]"></div>
@@ -29,12 +48,19 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     );
   }
 
-  // Renderizar children se for admin
-  if (user && isAdmin) {
-    return <>{children}</>;
+  // Se tiver usuário e for admin, renderizar children
+  if (user && typeof user === 'object' && user.email) {
+    const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((e: string) => e.trim()) || [];
+    const isAdminUser = adminEmails.includes(user.email);
+    
+    if (isAdminUser) {
+      console.log('ProtectedRoute: Rendering children');
+      return <>{children}</>;
+    }
   }
 
-  // Se não for admin, não renderizar nada (o useEffect cuidará do redirecionamento)
+  // Caso contrário, não renderizar nada (o useEffect cuidará do redirecionamento)
+  console.log('ProtectedRoute: Not admin or invalid user, rendering null');
   return null;
 };
 

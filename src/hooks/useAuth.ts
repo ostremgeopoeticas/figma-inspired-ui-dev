@@ -17,7 +17,8 @@ export const useAuth = () => {
         // Verificar se é admin
         if (currentUser) {
           const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((email: string) => email.trim()) || [];
-          setIsAdmin(adminEmails.includes(currentUser.email));
+          const isAdminUser = adminEmails.includes(currentUser.email);
+          setIsAdmin(isAdminUser);
         } else {
           setIsAdmin(false);
         }
@@ -40,7 +41,8 @@ export const useAuth = () => {
         // Verificar se é admin
         if (currentUser) {
           const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((email: string) => email.trim()) || [];
-          setIsAdmin(adminEmails.includes(currentUser.email));
+          const isAdminUser = adminEmails.includes(currentUser.email);
+          setIsAdmin(isAdminUser);
         } else {
           setIsAdmin(false);
         }
@@ -63,17 +65,25 @@ export const useAuth = () => {
 
       if (error) throw error;
       
-      // Verificar se é admin
+      console.log('Login successful:', email);
+      
+      // Atualizar o estado do usuário
+      setUser(data.user);
+      console.log('useAuth - User state updated:', data.user?.email);
+      
+      // Verificar se é admin e atualizar o estado
       const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((e: string) => e.trim()) || [];
-      const userIsAdmin = adminEmails.includes(email);
+      const isAdminUser = adminEmails.includes(email);
+      setIsAdmin(isAdminUser);
+      console.log('useAuth - Admin state updated:', isAdminUser);
       
       return { 
         user: data.user, 
-        isAdmin: userIsAdmin,
         error: null 
       };
     } catch (error: any) {
-      return { user: null, isAdmin: false, error: error.message };
+      console.error('Login error:', error);
+      return { user: null, error: error.message };
     }
   };
 
@@ -82,6 +92,7 @@ export const useAuth = () => {
       await supabase.auth.signOut();
       setUser(null);
       setIsAdmin(false);
+      console.log('Logout successful');
     } catch (error) {
       console.error('Error logging out:', error);
     }

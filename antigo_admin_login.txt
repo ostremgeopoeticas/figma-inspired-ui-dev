@@ -17,7 +17,6 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      console.log('Attempting login with email:', email);
       const { user, error: loginError } = await login(email, password);
 
       if (loginError) {
@@ -28,12 +27,8 @@ const AdminLogin = () => {
         throw new Error('Falha no login');
       }
 
-      // Verificar se o usuário é admin (usando a lógica do código antigo)
+      // Verificar se o usuário é admin
       const adminEmails = import.meta.env.VITE_ADMIN_EMAILS?.split(',').map((e: string) => e.trim()) || [];
-      console.log('Admin emails:', adminEmails);
-      console.log('User email:', email);
-      console.log('Is admin?', adminEmails.includes(email));
-      
       if (!adminEmails.includes(email)) {
         // Fazer logout se não for admin
         await supabase.auth.signOut();
@@ -41,7 +36,6 @@ const AdminLogin = () => {
       }
 
       // Redirecionar para o painel de administração
-      console.log('Redirecting to admin panel');
       navigate('/admin/blog');
     } catch (err: any) {
       console.error('Error logging in:', err);
