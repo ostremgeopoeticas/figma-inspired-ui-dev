@@ -45,25 +45,25 @@ const Archive = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[300px] relative bg-gradient-to-r from-[#4B5A43] to-[#6B7A63] overflow-hidden">
+      <section className="w-full h-[200px] md:h-[300px] relative bg-gradient-to-r from-[#4B5A43] to-[#6B7A63] overflow-hidden">
         <img
           src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
           alt="Banner acervo digital"
           className="w-full h-full object-cover opacity-50"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-[#F6D8B8] text-5xl font-bold text-center">Acervo Digital</h1>
+          <h1 className="text-[#F6D8B8] text-3xl md:text-5xl font-bold text-center">Acervo Digital</h1>
         </div>
       </section>
 
-      <div className="w-full max-w-6xl mx-auto px-8 py-12">
+      <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12">
         {/* Filtros */}
-        <section className="mb-8">
-          <div className="flex flex-wrap gap-4">
+        <section className="mb-6 md:mb-8">
+          <div className="flex flex-wrap gap-2 md:gap-4">
             {categories.map((category, index) => (
               <button
                 key={index}
-                className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-3 py-2 md:px-6 md:py-2 rounded-lg font-medium text-sm md:text-base transition-colors ${
                   index === 0 
                     ? 'bg-[#BB4514] text-white' 
                     : 'bg-white text-[#121A0F] hover:bg-[#F6D8B8] border border-[#BB4514]'
@@ -76,8 +76,8 @@ const Archive = () => {
         </section>
 
         {/* Galeria */}
-        <section className="mb-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <section className="mb-12 md:mb-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
             {galleryImages.map((image, index) => (
               <div key={index} className="aspect-square bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <img
@@ -91,17 +91,17 @@ const Archive = () => {
         </section>
 
         {/* Publicações */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-[#004A24] mb-8">Publicações</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+        <section className="mb-12 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6 md:mb-8">Publicações</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {publications.map((publication, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-                <div className="flex items-start gap-4">
-                  <div className="text-4xl">{publication.icon}</div>
+              <div key={index} className="bg-white rounded-lg shadow-lg p-4 md:p-6">
+                <div className="flex items-start gap-3 md:gap-4">
+                  <div className="text-2xl md:text-4xl">{publication.icon}</div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-[#004A24] mb-2">{publication.title}</h3>
-                    <p className="text-[#121A0F] text-sm mb-4">{publication.description}</p>
-                    <button className="bg-[#BB4514] text-white px-4 py-2 rounded-lg hover:bg-[#A03D12] transition-colors">
+                    <h3 className="text-base md:text-lg font-bold text-[#004A24] mb-2">{publication.title}</h3>
+                    <p className="text-[#121A0F] text-xs md:text-sm mb-3 md:mb-4">{publication.description}</p>
+                    <button className="bg-[#BB4514] text-white px-3 py-2 md:px-4 md:py-2 rounded-lg hover:bg-[#A03D12] transition-colors text-sm md:text-base">
                       Acessar PDF
                     </button>
                   </div>
@@ -113,13 +113,13 @@ const Archive = () => {
 
         {/* Links para Publicações */}
         <section>
-          <h2 className="text-3xl font-bold text-[#004A24] mb-8">Links para Publicações</h2>
-          <div className="space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6 md:mb-8">Links para Publicações</h2>
+          <div className="space-y-3 md:space-y-4">
             {links.map((link, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-4 flex items-center justify-between hover:shadow-xl transition-shadow">
-                <span className="text-[#121A0F] font-medium">{link}</span>
+              <div key={index} className="bg-white rounded-lg shadow-lg p-3 md:p-4 flex items-center justify-between hover:shadow-xl transition-shadow">
+                <span className="text-[#121A0F] font-medium text-sm md:text-base">{link}</span>
                 <button className="text-[#BB4514] hover:text-[#A03D12] transition-colors">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </button>

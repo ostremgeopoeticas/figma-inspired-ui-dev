@@ -30,9 +30,9 @@ const Footer = () => {
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <div className="flex max-w-[960px] flex-col items-start flex-1 w-full">
-        <div className="flex flex-col items-start gap-6 flex-1 w-full box-border px-5 py-10">
+        <div className="flex flex-col items-start gap-6 flex-1 w-full box-border px-4 py-8 md:px-5 md:py-10">
           <motion.nav 
-            className="flex justify-between items-center content-center gap-y-6 w-full flex-wrap" 
+            className="flex justify-between items-center content-center gap-y-4 w-full flex-wrap" 
             role="navigation" 
             aria-label="Menu do rodapé"
             initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
           >
             <motion.div 
-              className="flex w-40 min-w-40 flex-col items-center"
+              className="flex w-full sm:w-40 min-w-40 flex-col items-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -52,7 +52,7 @@ const Footer = () => {
               </Link>
             </motion.div>
             <motion.div 
-              className="flex w-40 min-w-40 flex-col items-center"
+              className="flex w-full sm:w-40 min-w-40 flex-col items-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -63,7 +63,7 @@ const Footer = () => {
               </Link>
             </motion.div>
             <motion.div 
-              className="flex w-40 min-w-40 flex-col items-center"
+              className="flex w-full sm:w-40 min-w-40 flex-col items-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -74,7 +74,7 @@ const Footer = () => {
               </Link>
             </motion.div>
             <motion.div 
-              className="flex w-40 min-w-40 flex-col items-center"
+              className="flex w-full sm:w-40 min-w-40 flex-col items-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -117,7 +117,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <p className="w-full text-[#F6D8B8] text-center text-base font-normal leading-6">
+            <p className="w-full text-[#F6D8B8] text-center text-sm md:text-base font-normal leading-6">
               © 2024 Os Trem. Todos os direitos reservados.
             </p>
           </motion.div>

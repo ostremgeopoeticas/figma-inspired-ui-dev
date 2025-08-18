@@ -63,25 +63,25 @@ const Blog = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[300px] relative bg-gradient-to-r from-[#4B5A43] to-[#6B7A63] overflow-hidden">
+      <section className="w-full h-[200px] md:h-[300px] relative bg-gradient-to-r from-[#4B5A43] to-[#6B7A63] overflow-hidden">
         <img
           src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
           alt="Banner notícias e blog"
           className="w-full h-full object-cover opacity-50"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-[#F6D8B8] text-5xl font-bold text-center">Notícias / Blog</h1>
+          <h1 className="text-[#F6D8B8] text-3xl md:text-5xl font-bold text-center">Notícias / Blog</h1>
         </div>
       </section>
 
-      <div className="w-full max-w-6xl mx-auto px-8 py-12">
+      <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12">
         {/* Filtros */}
-        <section className="mb-8">
-          <div className="flex flex-wrap gap-4 justify-center">
+        <section className="mb-6 md:mb-8">
+          <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
             {categories.map((category, index) => (
               <button
                 key={index}
-                className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-3 py-2 md:px-6 md:py-2 rounded-lg font-medium text-sm md:text-base transition-colors ${
                   index === 0 
                     ? 'bg-[#BB4514] text-white' 
                     : 'bg-white text-[#121A0F] hover:bg-[#F6D8B8] border border-[#BB4514]'
@@ -94,8 +94,8 @@ const Blog = () => {
         </section>
 
         {/* Posts Grid */}
-        <section className="mb-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="mb-8 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {blogPosts.map((post, index) => (
               <BlogCard
                 key={index}
@@ -112,12 +112,12 @@ const Blog = () => {
 
         {/* Paginação */}
         <section className="flex justify-center">
-          <div className="flex gap-2">
-            <button className="w-10 h-10 rounded-lg bg-[#BB4514] text-white font-medium">1</button>
-            <button className="w-10 h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8]">2</button>
-            <button className="w-10 h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8]">3</button>
-            <button className="w-10 h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8]">4</button>
-            <button className="w-10 h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8]">5</button>
+          <div className="flex gap-1 md:gap-2">
+            <button className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-[#BB4514] text-white font-medium text-sm md:text-base">1</button>
+            <button className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8] text-sm md:text-base">2</button>
+            <button className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8] text-sm md:text-base">3</button>
+            <button className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8] text-sm md:text-base">4</button>
+            <button className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white text-[#121A0F] border border-[#BB4514] hover:bg-[#F6D8B8] text-sm md:text-base">5</button>
           </div>
         </section>
       </div>

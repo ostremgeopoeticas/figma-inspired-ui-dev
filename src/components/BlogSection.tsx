@@ -31,21 +31,21 @@ const BlogSection = () => {
   ];
 
   return (
-    <section className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="w-full bg-white py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-10 md:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#004A24] mb-4">
             Últimas postagens
           </h2>
-          <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          <div className="w-16 h-1 bg-[#BB4514] mx-auto"></div>
         </motion.div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogPosts.map((post, index) => (
             <motion.div
               key={index}

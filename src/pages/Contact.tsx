@@ -37,22 +37,22 @@ const Contact = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[300px] relative bg-gradient-to-r from-[#BB4514] to-[#D4561A] overflow-hidden">
+      <section className="w-full h-[200px] md:h-[300px] relative bg-gradient-to-r from-[#BB4514] to-[#D4561A] overflow-hidden">
         <img
           src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
           alt="Banner contato"
           className="w-full h-full object-cover opacity-50"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-[#F6D8B8] text-5xl font-bold text-center">Contato</h1>
+          <h1 className="text-[#F6D8B8] text-3xl md:text-5xl font-bold text-center">Contato</h1>
         </div>
       </section>
 
-      <div className="w-full max-w-4xl mx-auto px-8 py-12">
+      <div className="w-full max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-12">
         {/* Formulário de Contato */}
-        <section className="mb-16">
-          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8">
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <section className="mb-12 md:mb-16">
+          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-4 md:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-[#004A24] mb-2">
                   Nome
@@ -64,7 +64,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Seu nome"
-                  className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514]"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514]"
                   required
                 />
               </div>
@@ -79,13 +79,13 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="seu@email.com"
-                  className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514]"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514]"
                   required
                 />
               </div>
             </div>
             
-            <div className="mb-6">
+            <div className="mb-4 md:mb-6">
               <label htmlFor="message" className="block text-sm font-medium text-[#004A24] mb-2">
                 Mensagem
               </label>
@@ -94,16 +94,16 @@ const Contact = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                rows={5}
+                rows={4}
                 placeholder="Digite sua mensagem aqui..."
-                className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] resize-vertical"
+                className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] resize-vertical"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="bg-[#BB4514] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#A03D12] transition-colors"
+              className="w-full md:w-auto bg-[#BB4514] text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-bold hover:bg-[#A03D12] transition-colors"
             >
               Enviar
             </button>
@@ -111,13 +111,13 @@ const Contact = () => {
         </section>
 
         {/* Social Media */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#004A24] mb-6 text-center">Social Media</h2>
-          <div className="flex justify-center gap-4">
+        <section className="mb-12 md:mb-16">
+          <h2 className="text-xl md:text-2xl font-bold text-[#004A24] mb-4 md:mb-6 text-center">Social Media</h2>
+          <div className="flex justify-center gap-3 md:gap-4 flex-wrap">
             {socialLinks.map((social, index) => (
               <button
                 key={index}
-                className={`w-12 h-12 rounded-full ${social.color} flex items-center justify-center text-white font-bold hover:scale-110 transition-transform`}
+                className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${social.color} flex items-center justify-center text-white font-bold hover:scale-110 transition-transform`}
               >
                 {social.name.charAt(0)}
               </button>
@@ -126,17 +126,17 @@ const Contact = () => {
         </section>
 
         {/* Email */}
-        <section className="mb-16 text-center">
-          <h2 className="text-2xl font-bold text-[#004A24] mb-4">E-mails</h2>
+        <section className="mb-12 md:mb-16 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-[#004A24] mb-3 md:mb-4">E-mails</h2>
           <div className="space-y-2">
-            <p className="text-[#121A0F]">
+            <p className="text-[#121A0F] text-sm md:text-base">
               <span className="font-medium">Coordenação do projeto:</span>
               <br />
               <a href="mailto:ostrem@geometrias.com.br" className="text-[#BB4514] hover:underline">
                 ostrem@geometrias.com.br
               </a>
             </p>
-            <p className="text-[#121A0F]">
+            <p className="text-[#121A0F] text-sm md:text-base">
               <span className="font-medium">Para contato:</span>
               <br />
               <a href="mailto:ola.geometrias@gmail.com" className="text-[#BB4514] hover:underline">
@@ -148,15 +148,15 @@ const Contact = () => {
 
         {/* Envie sua Poética */}
         <section>
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-[#004A24] mb-4">Envie sua Poética - Projeto Os Trem</h2>
-            <p className="text-[#121A0F] mb-6 leading-relaxed">
+          <div className="bg-white rounded-lg shadow-lg p-4 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-[#004A24] mb-3 md:mb-4">Envie sua Poética - Projeto Os Trem</h2>
+            <p className="text-[#121A0F] mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
               "Os Trem: Geopoéticas da Bacia do Rio Doce" busca reunir e divulgar as expressões artísticas e culturais da região. Sua história, 
               suas memórias e as suas manifestações podem contribuir para mapear e celebrar a diversidade cultural da Bacia do Rio Doce. 
               Envie aqui sua poética para que ela possa fazer parte das manifestações culturais e artísticas do projeto e dos dados da geografia poética.
             </p>
             
-            <div className="mb-6">
+            <div className="mb-4 md:mb-6">
               <label htmlFor="poeticSubmission" className="block text-sm font-medium text-[#004A24] mb-2">
                 Sua contribuição poética (opcional)
               </label>
@@ -165,19 +165,19 @@ const Contact = () => {
                 name="poeticSubmission"
                 value={formData.poeticSubmission}
                 onChange={handleInputChange}
-                rows={8}
+                rows={6}
                 placeholder="Compartilhe suas expressões artísticas, memórias ou manifestações culturais relacionadas à Bacia do Rio Doce..."
-                className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] resize-vertical"
+                className="w-full px-3 md:px-4 py-2 md:py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] resize-vertical"
               />
             </div>
 
-            <p className="text-sm text-[#121A0F] mb-4">
+            <p className="text-xs md:text-sm text-[#121A0F] mb-3 md:mb-4">
               Ao enviar sua contribuição, você estará ajudando a construir uma memória coletiva e a valorizar as manifestações 
               culturais da Bacia do Rio Doce. Esperamos contribuições artísticas, poéticas, literárias ou qualquer outra forma 
               de expressão cultural que dialogue com o território.
             </p>
 
-            <p className="text-sm text-[#121A0F] mb-6">
+            <p className="text-xs md:text-sm text-[#121A0F] mb-4 md:mb-6">
               Para enviar conteúdo multimídia (imagens, áudios ou vídeos), entre em contato conosco pelos e-mails informados acima.
             </p>
 
@@ -187,7 +187,7 @@ const Contact = () => {
                 // Handle poetic submission
                 console.log('Poetic submission:', formData.poeticSubmission);
               }}
-              className="bg-[#004A24] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#005a2d] transition-colors"
+              className="w-full md:w-auto bg-[#004A24] text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-bold hover:bg-[#005a2d] transition-colors"
             >
               Envie sua poética
             </button>
