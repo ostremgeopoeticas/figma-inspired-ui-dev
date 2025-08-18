@@ -1,73 +1,90 @@
-# Welcome to your Lovable project
+# Projeto Os Trem
 
-## Project info
+## Informações do Projeto
 
-**URL**: https://lovable.dev/projects/73931ecf-1c63-4923-bc5d-291bc30397c5
+Projeto cultural que explora as expressões artísticas e culturais da Bacia do Rio Doce.
 
-## How can I edit this code?
+## Como editar este código?
 
-There are several ways of editing your application.
+Existem várias formas de editar esta aplicação.
 
-**Use Lovable**
+**Usando Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/73931ecf-1c63-4923-bc5d-291bc30397c5) and start prompting.
+Visite o [Projeto Lovable](https://lovable.dev/projects/73931ecf-1c63-4923-bc5d-291bc30397c5) e comece a fazer prompts.
 
-Changes made via Lovable will be committed automatically to this repo.
+Mudanças feitas via Lovable serão automaticamente commitadas para este repositório.
 
-**Use your preferred IDE**
+**Usando sua IDE preferida**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Se quiser trabalhar localmente usando sua própria IDE, você pode clonar este repositório e fazer push das mudanças. Mudanças pushadas também serão refletidas no Lovable.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+O único requisito é ter o Node.js & npm instalados - [instale com nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Follow these steps:
+Siga estes passos:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Passo 1: Clone o repositório usando a URL Git do projeto.
+git clone <SUA_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Passo 2: Navegue até o diretório do projeto.
+cd <NOME_DO_SEU_PROJETO>
 
-# Step 3: Install the necessary dependencies.
+# Passo 3: Instale as dependências necessárias.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Passo 4: Inicie o servidor de desenvolvimento com auto-reload e preview instantâneo.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+**Editar um arquivo diretamente no GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Navegue até o arquivo desejado.
+- Clique no botão "Edit" (ícone de lápis) no canto superior direito da visualização do arquivo.
+- Faça suas mudanças e commite as alterações.
 
-**Use GitHub Codespaces**
+**Usar GitHub Codespaces**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Navegue até a página principal do seu repositório.
+- Clique no botão "Code" (botão verde) próximo ao canto superior direito.
+- Selecione a aba "Codespaces".
+- Clique em "New codespace" para lançar um novo ambiente Codespace.
+- Edite os arquivos diretamente no Codespace e commite e faça push das suas mudanças quando terminar.
 
-## What technologies are used for this project?
+## Quais tecnologias são usadas neste projeto?
 
-This project is built with:
+Este projeto é construído com:
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Framer Motion (para animações)
 
-## How can I deploy this project?
+## Como posso implantar este projeto?
 
-Simply open [Lovable](https://lovable.dev/projects/73931ecf-1c63-4923-bc5d-291bc30397c5) and click on Share -> Publish.
+### Implantando na Netlify
 
-## Can I connect a custom domain to my Lovable project?
+1. Faça login na sua conta Netlify
+2. Clique em "New site from Git"
+3. Conecte seu repositório GitHub
+4. Selecione este repositório
+5. Configure as seguintes opções:
+   - Branch to deploy: `main` (ou a branch que você deseja implantar)
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+6. Clique em "Deploy site"
 
-Yes, you can!
+O arquivo `netlify.toml` já está configurado com as opções necessárias para o deploy.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Implantando via Lovable
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Alternativamente, você pode simplesmente abrir [Lovable](https://lovable.dev/projects/73931ecf-1c63-4923-bc5d-291bc30397c5) e clicar em Share -> Publish.
+
+## Posso conectar um domínio personalizado ao meu projeto Lovable?
+
+Sim, você pode!
+
+Para conectar um domínio, navegue até Project > Settings > Domains e clique em Connect Domain.
+
+Leia mais aqui: [Configurando um domínio personalizado](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
