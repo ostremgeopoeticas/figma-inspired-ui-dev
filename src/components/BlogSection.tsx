@@ -1,5 +1,6 @@
 import React from 'react';
 import BlogCard from './BlogCard';
+import { motion } from 'framer-motion';
 
 const BlogSection = () => {
   const blogPosts = [
@@ -32,23 +33,36 @@ const BlogSection = () => {
   return (
     <section className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-4">
             Últimas postagens
           </h2>
           <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
-        </div>
+        </motion.div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post, index) => (
-            <BlogCard
+            <motion.div
               key={index}
-              image={post.image}
-              category={post.category}
-              title={post.title}
-              date={post.date}
-              excerpt={post.excerpt}
-              imageAlt={post.imageAlt}
-            />
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <BlogCard
+                image={post.image}
+                category={post.category}
+                title={post.title}
+                date={post.date}
+                excerpt={post.excerpt}
+                imageAlt={post.imageAlt}
+              />
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const socialIcons = [
@@ -17,55 +18,112 @@ const Footer = () => {
     },
     {
       name: "YouTube",
-      svg: `<svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon" style="width: 24px; height: 24px; fill: #F6D8B8; cursor: pointer; transition: fill 0.2s ease"> <g clip-path="url(#clip0_30_224)"> <path d="M9.03 14.44C8.69 14.44 8.36 14.44 8.03 14.44C7.81 14.44 7.58 14.44 7.36 14.44C6.65 14.44 5.92 14.43 5.19 14.38C4.39 14.33 3.29 14.26 2.39 13.89C0.68 13.19 0.6 11.19 0.54 9.72001C0.5 8.64001 0.5 7.56001 0.5 6.37001C0.5 6.24001 0.5 6.10001 0.5 5.96001C0.5 4.80001 0.5 3.49001 1 2.41001C1.64 1.03001 3.04 0.800011 4.41 0.700011C5.46 0.620011 6.54 0.590011 7.57 0.570011C9.58 0.530011 11.66 0.480011 13.72 0.560011C14.81 0.600011 15.81 0.670011 16.76 0.780011C17.57 0.870011 18.49 1.03001 19.09 1.76001C19.74 2.55001 19.87 3.60001 19.95 4.70001C19.97 4.92001 19.98 5.14001 19.99 5.39001C20.01 5.93001 20 6.49001 20 7.02001C20 7.27001 20 7.52001 20 7.76001C20 7.93001 20 8.11001 20 8.28001C20 9.17001 20.01 10.09 19.88 11C19.71 12.19 19.37 13.46 18.14 13.88C16.83 14.33 15.43 14.36 14.09 14.38H13.98C13.53 14.39 13.08 14.4 12.63 14.41C11.45 14.44 10.25 14.47 9.04 14.47L9.03 14.44ZM11.29 0.980011C10.04 0.980011 8.8 1.01001 7.58 1.03001C6.55 1.05001 5.49 1.08001 4.45 1.16001C3.17 1.26001 1.98 1.45001 1.44 2.60001C0.98 3.58001 0.98 4.84001 0.99 5.94001C0.99 6.08001 0.99 6.22001 0.99 6.35001C0.99 7.54001 0.99 8.60001 1.02 9.68001C1.08 11.09 1.15 12.84 2.57 13.42C3.39 13.76 4.45 13.82 5.22 13.87C5.93 13.92 6.66 13.92 7.36 13.93C7.58 13.93 7.81 13.93 8.03 13.93C9.55 13.95 11.1 13.92 12.6 13.88C13.05 13.87 13.5 13.86 13.95 13.85H14.06C15.37 13.82 16.73 13.8 17.97 13.37C18.95 13.03 19.23 11.98 19.39 10.88C19.51 10.01 19.51 9.11001 19.5 8.24001C19.5 8.07001 19.5 7.89001 19.5 7.72001C19.5 7.47001 19.5 7.22001 19.5 6.97001C19.5 6.44001 19.5 5.90001 19.49 5.36001C19.49 5.12001 19.47 4.91001 19.45 4.70001C19.37 3.68001 19.26 2.71001 18.7 2.03001C18.22 1.44001 17.44 1.31001 16.69 1.23001C15.75 1.12001 14.77 1.05001 13.69 1.01001C12.89 0.980011 12.08 0.970011 11.28 0.970011L11.29 0.980011ZM8.08 10.31V4.60001C8.08 4.40001 8.3 4.27001 8.48 4.37001L13.34 7.23001C13.51 7.33001 13.51 7.58001 13.34 7.68001L8.48 10.54C8.31 10.64 8.08 10.52 8.08 10.31ZM8.57 5.19001V9.72001C8.57 9.81001 8.67 9.87001 8.75 9.82001L12.6 7.56001C12.68 7.51001 12.68 7.40001 12.6 7.36001L8.75 5.10001C8.67 5.05001 8.57 5.11001 8.57 5.20001V5.19001Z" fill="#F6D8B8" stroke="#F6D8B8" stroke-miterlimit="10"></path> </g> <defs> <clipPath id="clip0_30_224"> <rect width="20.5" height="14.94" fill="white"></rect> </clipPath> </defs> </svg>`
+      svg: `<svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="social-icon" style="width: 24px; height: 24px; fill: #F6D8B8; cursor: pointer; transition: fill 0.2s ease"> <g clip-path="url(#clip0_30_224)"> <path d="M9.03 14.44C8.69 14.44 8.36 14.44 8.03 14.44C7.81 14.44 7.58 14.44 7.36 14.44C6.65 14.44 5.92 14.43 5.19 14.38C4.39 14.33 3.29 14.26 2.39 13.89C0.68 13.19 0.6 11.19 0.54 9.72001C0.5 8.64001 0.5 7.56001 0.5 6.37001C0.5 6.24001 0.5 6.10001 0.5 5.96001C0.5 4.80001 0.5 3.49001 1 2.41001C1.64 1.03001 3.04 0.800011 4.41 0.700011C5.46 0.620011 6.54 0.590011 7.57 0.570011C9.58 0.530011 11.66 0.480011 13.72 0.560011C14.81 0.600011 15.81 0.670011 16.76 0.780011C17.57 0.870011 18.49 1.03001 19.09 1.76001C19.74 2.55001 19.87 3.60001 19.95 4.70001C19.97 4.92001 19.98 5.14001 19.99 5.39001C20.01 5.93001 20 6.49001 20 7.02001C20 7.27001 20 7.52001 20 7.76001C20 7.93001 20 8.11001 20 8.28001C20 9.17001 20.01 10.09 19.88 11C19.71 12.19 19.37 13.46 18.14 13.88C16.83 14.33 15.43 14.36 14.09 14.38H13.98C13.53 14.39 13.08 14.4 12.63 14.41C11.45 14.44 10.25 14.47 9.04 14.47L9.03 14.44ZM11.29 0.980011C10.04 0.980011 8.8 1.01001 7.58 1.03001C6.55 1.05001 5.49 1.08001 4.45 1.16001C3.17 1.26001 1.98 1.45001 1.44 2.60001C0.98 3.58001 0.98 4.84001 0.99 5.94001C0.99 6.08001 0.99 6.22001 0.99 6.35001C0.99 7.54001 0.99 8.60001 1.02 9.68001C1.08 11.09 1.15 12.84 2.57 13.42C3.39 13.76 4.45 13.82 5.22 13.87C5.93 13.92 6.66 13.92 7.36 13.93C7.58 13.93 7.81 13.93 8.03 13.93C9.55 13.95 11.1 13.92 12.6 13.88C13.05 13.87 13.5 13.86 13.95 13.85H14.06C15.37 13.82 16.73 13.8 17.97 13.37C18.95 13.03 19.23 11.98 19.39 10.88C19.51 10.01 19.51 9.11001 19.5 8.24001C19.5 8.07001 19.5 7.89001 19.5 7.72001C19.5 7.47001 19.5 7.22001 19.5 6.97001C19.5 6.44001 19.5 5.90001 19.49 5.36001C19.49 5.12001 19.47 4.91001 19.45 4.70001C19.37 3.68001 19.26 2.71001 18.7 2.03001C18.22 1.44001 17.44 1.31001 16.69 1.23001C15.75 1.12001 14.77 1.05001 13.69 1.01001C12.89 0.980011 12.09 0.980011 11.29 0.980011ZM8.23 3.74001L13.24 6.74001C13.92 7.15001 13.92 8.11001 13.24 8.52001L8.23 11.52C7.55 11.93 6.71 11.45 6.71 10.63V4.63001C6.71 3.81001 7.55 3.33001 8.23 3.74001Z" fill="#F6D8B8"></path> </g> <defs> <clipPath id="clip0_30_224"> <rect width="20" height="14" fill="white" transform="translate(0.5 0.5)"></rect> </clipPath> </defs> </svg>`
     }
   ];
 
   return (
-    <footer className="flex justify-center items-start w-full bg-[#4B5A43]">
+    <motion.footer 
+      className="flex justify-center items-start w-full bg-[#4B5A43]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <div className="flex max-w-[960px] flex-col items-start flex-1 w-full">
         <div className="flex flex-col items-start gap-6 flex-1 w-full box-border px-5 py-10">
-          <nav className="flex justify-between items-center content-center gap-y-6 w-full flex-wrap" role="navigation" aria-label="Menu do rodapé">
-            <div className="flex w-40 min-w-40 flex-col items-center">
+          <motion.nav 
+            className="flex justify-between items-center content-center gap-y-6 w-full flex-wrap" 
+            role="navigation" 
+            aria-label="Menu do rodapé"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div 
+              className="flex w-40 min-w-40 flex-col items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
               <Link to="/sobre" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Sobre o projeto
               </Link>
-            </div>
-            <div className="flex w-40 min-w-40 flex-col items-center">
+            </motion.div>
+            <motion.div 
+              className="flex w-40 min-w-40 flex-col items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
               <Link to="/eventos" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
-                Encontros e eventos
+                Eventos
               </Link>
-            </div>
-            <div className="flex w-40 min-w-40 flex-col items-center">
+            </motion.div>
+            <motion.div 
+              className="flex w-40 min-w-40 flex-col items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+            >
               <Link to="/blog" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Notícias / Blog
               </Link>
-            </div>
-            <div className="flex w-40 min-w-40 flex-col items-center">
+            </motion.div>
+            <motion.div 
+              className="flex w-40 min-w-40 flex-col items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.4 }}
+            >
               <Link to="/contato" className="text-[#F6D8B8] text-sm font-normal leading-[21px] hover:text-white transition-colors">
                 Contato
               </Link>
-            </div>
-          </nav>
-          <div className="flex justify-center items-center content-center gap-4 w-full flex-wrap">
+            </motion.div>
+          </motion.nav>
+          <motion.div 
+            className="flex justify-center items-center content-center gap-4 w-full flex-wrap"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             {socialIcons.map((icon, index) => (
-              <div key={index} className="flex flex-col items-center">
+              <motion.div 
+                key={index} 
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                whileHover={{ y: -5 }}
+              >
                 <button 
                   aria-label={`Seguir no ${icon.name}`}
                   className="hover:opacity-80 transition-opacity"
                   dangerouslySetInnerHTML={{ __html: icon.svg }}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <div className="flex flex-col items-center w-full">
+          </motion.div>
+          <motion.div 
+            className="flex flex-col items-center w-full"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <p className="w-full text-[#F6D8B8] text-center text-base font-normal leading-6">
               © 2024 Os Trem. Todos os direitos reservados.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

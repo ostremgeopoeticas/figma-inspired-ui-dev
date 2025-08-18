@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface BlogCardProps {
   image: string;
@@ -18,7 +19,14 @@ const BlogCard: React.FC<BlogCardProps> = ({
   imageAlt = "" 
 }) => {
   return (
-    <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+    <motion.article 
+      className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      whileHover={{ y: -5 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="relative">
         <img
           src={image}
@@ -41,11 +49,15 @@ const BlogCard: React.FC<BlogCardProps> = ({
         <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
           {excerpt}
         </p>
-        <button className="bg-[#004A24] text-[#F6D8B8] px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#005a2d] transition-colors duration-300">
+        <motion.button 
+          className="bg-[#004A24] text-[#F6D8B8] px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#005a2d] transition-colors duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Leia mais
-        </button>
+        </motion.button>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
