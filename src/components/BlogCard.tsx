@@ -18,40 +18,32 @@ const BlogCard: React.FC<BlogCardProps> = ({
   imageAlt = "" 
 }) => {
   return (
-    <article className="flex w-[321px] h-[551px] flex-col items-start p-4">
-      <div className="flex w-[291px] flex-col items-start gap-4 rounded-lg">
+    <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+      <div className="relative">
         <img
           src={image}
           alt={imageAlt}
-          className="w-[292px] h-[171px] rounded-[20px_20px_0_0] object-cover"
+          className="w-full h-48 object-cover"
         />
-        <div className="flex w-[291px] flex-col items-start gap-4">
-          <div className="flex w-[291px] flex-col items-start gap-1">
-            <div className="flex w-[291px] h-[29px] flex-col items-start">
-              <span className="h-[29px] w-full text-[#BB4514] text-[22px] font-bold leading-[25px]">
-                {category}
-              </span>
-            </div>
-            <div className="flex w-[291px] flex-col items-start">
-              <h3 className="w-full text-[#121A0F] text-[22px] font-bold leading-[25px] mb-2">
-                {title}
-              </h3>
-            </div>
-            <time className="w-full text-[#004A24] text-xs font-normal leading-[21px]">
-              {date}
-            </time>
-            <div className="flex w-[291px] flex-col items-start">
-              <p className="w-full text-[#121A0F] text-sm font-normal leading-[21px]">
-                {excerpt}
-              </p>
-            </div>
-          </div>
-          <button className="flex h-8 min-w-[84px] max-w-[480px] justify-center items-center bg-[#EBF2E8] px-4 py-0 rounded-lg hover:bg-[#dde8d8] transition-colors">
-            <span className="text-[#121A0F] text-center text-sm font-normal leading-[21px]">
-              Leia mais
-            </span>
-          </button>
+        <div className="absolute top-4 left-4">
+          <span className="bg-[#BB4514] text-white px-3 py-1 rounded-full text-sm font-bold">
+            {category}
+          </span>
         </div>
+      </div>
+      <div className="p-6">
+        <time className="text-[#004A24] text-sm font-medium">
+          {date}
+        </time>
+        <h3 className="text-xl font-bold text-[#121A0F] mt-2 mb-3 line-clamp-2">
+          {title}
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+          {excerpt}
+        </p>
+        <button className="bg-[#004A24] text-[#F6D8B8] px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#005a2d] transition-colors duration-300">
+          Leia mais
+        </button>
       </div>
     </article>
   );

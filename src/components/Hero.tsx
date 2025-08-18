@@ -1,37 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import heroBackground from '@/assets/hero-background.jpg';
 
 const Hero = () => {
   return (
-    <section className="flex flex-col items-center w-full box-border px-40 py-0">
-      <div className="w-full h-[480px] min-h-[480px] relative">
-        <div className="flex w-[calc(100%_-_90px)] h-[391px] flex-col items-start gap-[179px] absolute left-[45px] top-[89px]">
-          <div className="flex h-[177px] flex-col items-start">
-            <div className="w-[447px] h-[139px] relative max-sm:w-4/5">
-              <div className="w-[376px] h-[43px] absolute bg-[#9C4716] left-0 top-0.5 max-sm:w-4/5" />
-              <div className="w-[319px] h-[43px] absolute bg-[#9C4716] left-0 top-[49px] max-sm:w-[70%]" />
-              <div className="w-[343px] h-[43px] absolute bg-[#9C4716] left-0 top-24 max-sm:w-9/12" />
-              <h1 className="w-[443px] text-[#F6D8B8] text-5xl font-normal leading-[45px] tracking-[-2px] absolute h-[135px] left-1 top-0">
-                Onde o chão vira palavra e o rio conta histórias.
-              </h1>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center w-full">
-            <p className="w-full text-[#F6D8B8] text-center text-base font-normal leading-6">
-              Explorando as expressões culturais e artísticas na cuenca do rio, combinando arte, geografia e memória.
-            </p>
-          </div>
-        </div>
-        <div className="inline-flex justify-center items-start content-start gap-3 flex-wrap absolute w-[332px] h-12 left-[463px] top-[379px]">
-          <button className="flex w-40 h-12 justify-center items-center gap-2.5 bg-[#004A24] p-2.5 rounded-lg hover:bg-[#005a2d] transition-colors">
-            <span className="text-[#F6D8B8] text-center text-base font-bold leading-6">
+    <section className="relative w-full h-[600px] overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBackground})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+      
+      <div className="relative z-10 flex flex-col justify-center items-start h-full max-w-7xl mx-auto px-8 lg:px-16">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+            Onde o chão vira palavra e o rio conta histórias.
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed drop-shadow-md">
+            Explorando as expressões culturais e artísticas na cuenca do rio, combinando arte, geografia e memória.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link 
+              to="/sobre"
+              className="flex justify-center items-center px-8 py-3 bg-[#004A24] text-[#F6D8B8] font-bold rounded-lg hover:bg-[#005a2d] transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
               Sobre o projeto
-            </span>
-          </button>
-          <button className="flex w-40 h-12 justify-center items-center gap-2.5 bg-[#F6D8B8] p-2.5 rounded-lg hover:bg-[#f0d0a8] transition-colors">
-            <span className="text-[#4B5A43] text-center text-base font-bold leading-6">
+            </Link>
+            <Link 
+              to="/contato"
+              className="flex justify-center items-center px-8 py-3 bg-[#F6D8B8] text-[#4B5A43] font-bold rounded-lg hover:bg-[#f0d0a8] transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
               Envie sua poética
-            </span>
-          </button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -30,14 +30,15 @@ const BlogSection = () => {
   ];
 
   return (
-    <section className="flex max-w-[960px] items-start w-full">
-      <div className="flex h-[618px] flex-col items-start flex-1">
-        <div className="flex flex-col items-start w-full box-border pt-[50px] pb-3 px-4">
-          <h2 className="w-full text-[#004A24] text-[22px] font-normal leading-7">
+    <section className="w-full bg-white py-16">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-4">
             Últimas postagens
           </h2>
+          <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
         </div>
-        <div className="flex items-start w-full">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post, index) => (
             <BlogCard
               key={index}
