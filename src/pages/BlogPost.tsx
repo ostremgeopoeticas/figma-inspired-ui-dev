@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogPostComponent from '@/components/BlogPost';
-import { getBlogPostById, BlogPost } from '@/services/blogService';
+import { getBlogPostById } from '@/services/blogService';
+import type { BlogPost } from '@/lib/supabase';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();

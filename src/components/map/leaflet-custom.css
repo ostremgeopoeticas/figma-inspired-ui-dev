@@ -1,0 +1,45 @@
+/* Leaflet Custom Styles */
+.leaflet-container {
+  font-family: inherit;
+  z-index: 1 !important;
+}
+
+.leaflet-control-container {
+  z-index: 1000 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 1001 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.leaflet-popup-content {
+  margin: 12px;
+  line-height: 1.5;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* Fix for default markers */
+.leaflet-default-icon-path {
+  background-image: url('https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png');
+}
+
+.leaflet-default-shadow-path {
+  background-image: url('https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png');
+}
+
+/* Ensure modals are always on top */
+.modal-overlay {
+  z-index: 9999 !important;
+}
+
+.modal-content {
+  z-index: 10000 !important;
+}

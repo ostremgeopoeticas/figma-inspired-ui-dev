@@ -34,7 +34,7 @@ const MobileSidebar = () => {
     <>
       {/* Botão de hambúrguer visível apenas em mobile */}
       <button 
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#BB4514] shadow-lg"
+        className="md:hidden fixed top-4 left-4 z-40 p-2 rounded-lg bg-[#BB4514] shadow-lg"
         onClick={toggleSidebar}
         aria-label="Abrir menu"
         aria-expanded={isOpen}
@@ -45,7 +45,7 @@ const MobileSidebar = () => {
       {/* Sidebar overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={closeSidebar}
         >
           <div 

@@ -6,7 +6,7 @@ import MobileSidebar from './MobileSidebar';
 const Header = () => {
   return (
     <>
-      <header className="flex justify-between items-center w-full box-border bg-[#BB4514] px-4 py-3 md:px-10 md:py-3">
+      <header className="flex justify-between items-center w-full box-border bg-[#BB4514] px-4 py-3 md:px-10 md:py-3 sticky top-0 left-0 right-0 z-50">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}

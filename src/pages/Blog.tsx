@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogCard from '@/components/BlogCard';
-import { getBlogPosts, getBlogPostsCount, getBlogCategories, BlogPost, BlogCategory } from '@/services/blogService';
+import { getBlogPosts, getBlogPostsCount, getBlogCategories } from '@/services/blogService';
+import { BlogPost, BlogCategory } from '@/lib/supabase';
 import blogBanner from '@/assets/banner_blog_page.png';
 
 const Blog = () => {
@@ -22,7 +23,7 @@ const Blog = () => {
         const categoriesData = await getBlogCategories();
         console.log('Categories fetched in Blog page:', categoriesData);
         setCategories([
-          { id: 0, name: 'Todos', description: 'Todas as categorias' },
+          { id: 0, name: 'Todos', description: 'Todas as categorias', created_at: new Date().toISOString() },
           ...categoriesData
         ]);
         
