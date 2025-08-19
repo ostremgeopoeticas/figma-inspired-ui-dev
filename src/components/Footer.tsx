@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import logoOsTrem from '@/assets/logo_os_trem.svg';
 
 const Footer = () => {
   const socialIcons = [
@@ -35,6 +36,23 @@ const Footer = () => {
     >
       <div className="flex max-w-[960px] flex-col items-start flex-1 w-full">
         <div className="flex flex-col items-start gap-6 flex-1 w-full box-border px-4 py-8 md:px-5 md:py-10">
+          {/* Logo do projeto */}
+          <motion.div 
+            className="flex justify-center w-full mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link to="/" className="flex items-center justify-center">
+              <img
+                src={logoOsTrem}
+                alt="Logo Os Trem"
+                className="w-32 h-12 md:w-40 md:h-16"
+              />
+            </Link>
+          </motion.div>
+          
           <motion.nav 
             className="flex justify-between items-center content-center gap-y-4 w-full flex-wrap" 
             role="navigation" 

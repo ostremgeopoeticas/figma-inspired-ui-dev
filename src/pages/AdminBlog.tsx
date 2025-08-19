@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import logoOsTrem from '@/assets/logo_os_trem.svg';
 
 interface BlogPost {
   id: number;
@@ -280,9 +281,16 @@ const AdminBlog = () => {
       <div className="bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Painel Administrativo</h1>
-              <p className="text-slate-600 mt-1">Gerenciamento do Blog</p>
+            <div className="flex items-center space-x-4">
+              <img
+                src={logoOsTrem}
+                alt="Logo Os Trem"
+                className="w-16 h-8"
+              />
+              <div>
+                <h1 className="text-3xl font-bold text-slate-900">Painel Administrativo</h1>
+                <p className="text-slate-600 mt-1">Gerenciamento do Blog</p>
+              </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
@@ -302,11 +310,8 @@ const AdminBlog = () => {
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
               >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
                 Sair
               </Button>
             </div>

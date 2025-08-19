@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import MobileSidebar from './MobileSidebar';
+import logoOsTrem from '@/assets/logo_os_trem.svg';
 
 const Header = () => {
   return (
@@ -14,7 +15,7 @@ const Header = () => {
         >
           <Link to="/">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/53bab51df5ffdee1dc031b6b054768e906c68ca2?width=306"
+              src={logoOsTrem}
               alt="Logo Os Trem"
               className="w-[100px] h-[40px] md:w-[153px] md:h-[60px]"
             />

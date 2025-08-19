@@ -23,6 +23,7 @@ import {
   type CulturalCategory, 
   type Region 
 } from '@/services/mapService';
+import logoOsTrem from '@/assets/logo_os_trem.svg';
 import 'leaflet/dist/leaflet.css';
 import '@/components/map/leaflet-custom.css';
 
@@ -106,48 +107,23 @@ const AdminMap = () => {
 
     // Filtrar por categoria
     if (categoryFilter !== 'todas') {
-      const selectedCategory = categories.find(cat => cat.name === categoryFilter);
-      if (selectedCategory) {
-        filtered = filtered.filter(work => work.category_id === selectedCategory.id);
-      }
+      filtered = filtered.filter(work => work.category_name === categoryFilter);
     }
 
     setFilteredWorks(filtered);
-  }, [works, searchTerm, statusFilter, categoryFilter, categories]);
+  }, [works, searchTerm, statusFilter, categoryFilter]);
 
-  const handleStatusChange = async (workId: number, newStatus: 'active' | 'inactive' | 'pending') => {
-    try {
-      const success = await updateCulturalWorkStatus(workId, newStatus);
-      if (success) {
-        setWorks(prevWorks =>
-          prevWorks.map(work =>
-            work.id === workId ? { ...work, status: newStatus } : work
-          )
-        );
-        // Atualizar estatísticas
-        const newStats = await getAdminCulturalWorksStats();
-        setStats(newStats);
-      } else {
-        alert('Erro ao atualizar status da obra');
-      }
-    } catch (error) {
-      console.error('Error updating work status:', error);
-      alert('Erro ao atualizar status da obra');
-    }
+  const handleEdit = (work: CulturalWorkWithDetails) => {
+    setSelectedWork(work);
+    setIsEditing(true);
+    setShowModal(true);
   };
 
-  const handleDeleteWork = async (workId: number) => {
-    if (confirm('Tem certeza que deseja excluir esta obra?')) {
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Tem certeza que deseja excluir esta obra?')) {
       try {
-        const success = await deleteCulturalWork(workId);
-        if (success) {
-          setWorks(prevWorks => prevWorks.filter(work => work.id !== workId));
-          // Atualizar estatísticas
-          const newStats = await getAdminCulturalWorksStats();
-          setStats(newStats);
-        } else {
-          alert('Erro ao excluir obra');
-        }
+        await deleteCulturalWork(id);
+        await loadData();
       } catch (error) {
         console.error('Error deleting work:', error);
         alert('Erro ao excluir obra');
@@ -155,48 +131,25 @@ const AdminMap = () => {
     }
   };
 
-  const handleEditWork = (work: CulturalWorkWithDetails) => {
-    setSelectedWork(work);
-    setIsEditing(true);
-    setShowModal(true);
+  const handleStatusChange = async (id: number, newStatus: string) => {
+    try {
+      await updateCulturalWorkStatus(id, newStatus);
+      await loadData();
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Erro ao atualizar status');
+    }
   };
 
-  const handleSaveWork = async (workData: { title: string; author: string; description: string; category: string; region: string }) => {
+  const handleSave = async (workData: any) => {
     try {
-      // Encontrar IDs das novas seleções
-      const selectedCategory = categories.find(cat => cat.name === workData.category);
-      const selectedRegion = regions.find(reg => reg.name === workData.region);
-
-      if (!selectedCategory || !selectedRegion) {
-        alert('Categoria ou região inválida');
-        return;
-      }
-
-      if (selectedWork && isEditing) {
+      if (isEditing && selectedWork) {
         // Atualizar obra existente
-        const updatedWork = await updateCulturalWork(selectedWork.id, {
-          title: workData.title,
-          author: workData.author,
-          description: workData.description,
-          category_id: selectedCategory.id,
-          region_id: selectedRegion.id,
-        });
-
-        if (updatedWork) {
-          // Recarregar dados para ter as relações atualizadas
-          await loadData();
-        } else {
-          alert('Erro ao salvar alterações');
-        }
+        await updateCulturalWork(selectedWork.id, workData);
       } else {
         // Criar nova obra
         const newWork = await createCulturalWork({
-          title: workData.title,
-          author: workData.author,
-          description: workData.description,
-          region_id: selectedRegion.id,
-          category_id: selectedCategory.id,
-          type_id: 1, // Default type
+          ...workData,
           material_ids: [1], // Default material
           latitude: -19.5, // Default coordinates (center of Rio Doce basin)
           longitude: -42.5,
@@ -245,9 +198,16 @@ const AdminMap = () => {
       <div className="bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Painel Administrativo</h1>
-              <p className="text-slate-600 mt-1">Gerenciamento do Mapa Cultural</p>
+            <div className="flex items-center space-x-4">
+              <img
+                src={logoOsTrem}
+                alt="Logo Os Trem"
+                className="w-16 h-8"
+              />
+              <div>
+                <h1 className="text-3xl font-bold text-slate-900">Painel Administrativo</h1>
+                <p className="text-slate-600 mt-1">Gerenciamento do Mapa Cultural</p>
+              </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
@@ -267,11 +227,8 @@ const AdminMap = () => {
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
               >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
                 Sair
               </Button>
             </div>
@@ -512,14 +469,14 @@ const AdminMap = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => handleEditWork(work)}
+                      onClick={() => handleEdit(work)}
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => handleDeleteWork(work.id)}
+                      onClick={() => handleDelete(work.id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -558,7 +515,7 @@ const AdminMap = () => {
             <form onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              handleSaveWork({
+              handleSave({
                 title: formData.get('title') as string,
                 author: formData.get('author') as string,
                 description: formData.get('description') as string,

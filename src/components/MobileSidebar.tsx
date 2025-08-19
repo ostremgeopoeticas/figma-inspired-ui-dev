@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, Menu } from 'lucide-react';
+import logoOsTrem from '@/assets/logo_os_trem.svg';
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,8 +53,15 @@ const MobileSidebar = () => {
             className="fixed left-0 top-0 h-full w-64 bg-[#4B5A43] shadow-lg transform transition-transform duration-300 ease-in-out"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Botão de fechar */}
-            <div className="flex justify-end p-4">
+            {/* Header com logo */}
+            <div className="flex justify-between items-center p-4 border-b border-[#5a6b51]">
+              <Link to="/" onClick={closeSidebar} className="flex items-center">
+                <img
+                  src={logoOsTrem}
+                  alt="Logo Os Trem"
+                  className="w-24 h-10"
+                />
+              </Link>
               <button 
                 onClick={closeSidebar}
                 className="p-2 rounded-full hover:bg-[#5a6b51] focus:outline-none focus:ring-2 focus:ring-[#F6D8B8]"
