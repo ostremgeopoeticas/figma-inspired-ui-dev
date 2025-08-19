@@ -1,14 +1,30 @@
-import { 
-  supabase, 
-  supabaseAdmin, 
-  CulturalWork, 
-  CulturalWorkWithDetails, 
-  Region, 
-  CulturalCategory, 
-  CulturalType, 
-  Material,
-  MapFilters 
-} from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
+import type { Database } from '@/integrations/supabase/types';
+
+// Usar os tipos do Supabase gerados automaticamente
+type Tables = Database['public']['Tables'];
+export type Region = Tables['regions']['Row'];
+export type CulturalCategory = Tables['cultural_categories']['Row'];
+export type CulturalType = Tables['cultural_types']['Row'];
+export type Material = Tables['materials']['Row'];
+export type CulturalWork = Tables['cultural_works']['Row'];
+
+// Tipo para obra cultural com detalhes das relações
+export interface CulturalWorkWithDetails extends CulturalWork {
+  region: Region;
+  category: CulturalCategory;
+  type: CulturalType;
+  materials?: Material[];
+}
+
+export interface MapFilters {
+  searchTerm: string;
+  regionId?: number;
+  categoryId?: number;
+  typeId?: number;
+  materialIds: number[];
+  status: string;
+}
 
 // Funções para buscar dados de referência
 export const getRegions = async (): Promise<Region[]> => {
@@ -84,10 +100,9 @@ export const getCulturalWorks = async (filters?: MapFilters): Promise<CulturalWo
       .from('cultural_works')
       .select(`
         *,
-        region:regions(*),
-        category:cultural_categories(*),
-        type:cultural_types(*),
-        materials:materials(*)
+        region:regions!region_id(*),
+        category:cultural_categories!category_id(*),
+        type:cultural_types!type_id(*)
       `)
       .eq('status', 'active')
       .order('created_at', { ascending: false });
@@ -121,14 +136,13 @@ export const getCulturalWorks = async (filters?: MapFilters): Promise<CulturalWo
 // Função específica para admin que inclui todos os status
 export const getAllCulturalWorksForAdmin = async (filters?: { searchTerm?: string; status?: string; categoryId?: number }): Promise<CulturalWorkWithDetails[]> => {
   try {
-    let query = supabaseAdmin
+    let query = supabase
       .from('cultural_works')
       .select(`
         *,
-        region:regions(*),
-        category:cultural_categories(*),
-        type:cultural_types(*),
-        materials:materials(*)
+        region:regions!region_id(*),
+        category:cultural_categories!category_id(*),
+        type:cultural_types!type_id(*)
       `)
       .order('created_at', { ascending: false });
 
@@ -161,10 +175,9 @@ export const getCulturalWorkById = async (id: number): Promise<CulturalWorkWithD
       .from('cultural_works')
       .select(`
         *,
-        region:regions(*),
-        category:cultural_categories(*),
-        type:cultural_types(*),
-        materials:materials(*)
+        region:regions!region_id(*),
+        category:cultural_categories!category_id(*),
+        type:cultural_types!type_id(*)
       `)
       .eq('id', id)
       .eq('status', 'active')
@@ -187,10 +200,9 @@ export const getCulturalWorksInBounds = async (
       .from('cultural_works')
       .select(`
         *,
-        region:regions(*),
-        category:cultural_categories(*),
-        type:cultural_types(*),
-        materials:materials(*)
+        region:regions!region_id(*),
+        category:cultural_categories!category_id(*),
+        type:cultural_types!type_id(*)
       `)
       .eq('status', 'active')
       .gte('latitude', bounds.south)
@@ -227,9 +239,23 @@ export const getCulturalWorksInBounds = async (
 export const createCulturalWork = async (work: Omit<CulturalWork, 'id' | 'created_at' | 'updated_at' | 'submission_date'>): Promise<CulturalWork | null> => {
   try {
     const workData = {
-      ...work,
-      status: 'active', // Por enquanto, aprovar automaticamente
-      submission_date: new Date().toISOString(),
+      title: work.title,
+      author: work.author,
+      description: work.description,
+      region_id: work.region_id,
+      category_id: work.category_id,
+      type_id: work.type_id,
+      material_ids: work.material_ids || [],
+      latitude: work.latitude,
+      longitude: work.longitude,
+      address: work.address || '',
+      image_urls: work.image_urls || [],
+      contact_info: work.contact_info || {},
+      status: 'active',
+      submitted_by: work.submitted_by || 'Anônimo',
+      tags: work.tags || [],
+      approved_by: work.approved_by,
+      approval_date: work.approval_date,
     };
 
     const { data, error } = await supabase
@@ -248,7 +274,7 @@ export const createCulturalWork = async (work: Omit<CulturalWork, 'id' | 'create
 
 export const updateCulturalWork = async (id: number, updates: Partial<CulturalWork>): Promise<CulturalWork | null> => {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await supabase
       .from('cultural_works')
       .update(updates)
       .eq('id', id)
@@ -266,7 +292,7 @@ export const updateCulturalWork = async (id: number, updates: Partial<CulturalWo
 export const deleteCulturalWork = async (id: number): Promise<boolean> => {
   try {
     // Soft delete - marcar como inativo
-    const { error } = await supabaseAdmin
+    const { error } = await supabase
       .from('cultural_works')
       .update({ status: 'inactive' })
       .eq('id', id);
@@ -281,7 +307,7 @@ export const deleteCulturalWork = async (id: number): Promise<boolean> => {
 
 export const updateCulturalWorkStatus = async (id: number, status: 'active' | 'inactive' | 'pending'): Promise<boolean> => {
   try {
-    const { error } = await supabaseAdmin
+    const { error } = await supabase
       .from('cultural_works')
       .update({ status })
       .eq('id', id);
@@ -301,10 +327,9 @@ export const searchCulturalWorks = async (searchTerm: string, limit: number = 20
       .from('cultural_works')
       .select(`
         *,
-        region:regions(*),
-        category:cultural_categories(*),
-        type:cultural_types(*),
-        materials:materials(*)
+        region:regions!region_id(*),
+        category:cultural_categories!category_id(*),
+        type:cultural_types!type_id(*)
       `)
       .eq('status', 'active')
       .or(`title.ilike.%${searchTerm}%,author.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,tags.cs.{${searchTerm}}`)
@@ -371,30 +396,30 @@ export const getCulturalWorksStats = async () => {
 // Estatísticas específicas para admin (incluindo todos os status)
 export const getAdminCulturalWorksStats = async () => {
   try {
-    const { count: totalWorks, error: totalError } = await supabaseAdmin
+    const { count: totalWorks, error: totalError } = await supabase
       .from('cultural_works')
       .select('*', { count: 'exact', head: true });
 
-    const { count: activeWorks, error: activeError } = await supabaseAdmin
+    const { count: activeWorks, error: activeError } = await supabase
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active');
 
-    const { count: pendingWorks, error: pendingError } = await supabaseAdmin
+    const { count: pendingWorks, error: pendingError } = await supabase
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'pending');
 
-    const { count: inactiveWorks, error: inactiveError } = await supabaseAdmin
+    const { count: inactiveWorks, error: inactiveError } = await supabase
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'inactive');
 
-    const { count: totalCategories, error: categoriesError } = await supabaseAdmin
+    const { count: totalCategories, error: categoriesError } = await supabase
       .from('cultural_categories')
       .select('*', { count: 'exact', head: true });
 
-    const { count: totalRegions, error: regionsError } = await supabaseAdmin
+    const { count: totalRegions, error: regionsError } = await supabase
       .from('regions')
       .select('*', { count: 'exact', head: true });
 

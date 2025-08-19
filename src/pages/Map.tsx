@@ -4,8 +4,7 @@ import { Icon } from 'leaflet';
 import { MapPin, Palette, Music, BookOpen, Camera, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getCulturalWorks, getCulturalWorksStats, createCulturalWork, getCulturalCategories, getRegions } from '@/services/mapService';
-import { CulturalWorkWithDetails, CulturalCategory, Region } from '@/lib/supabase';
+import { getCulturalWorks, getCulturalWorksStats, createCulturalWork, getCulturalCategories, getRegions, type CulturalWorkWithDetails, type CulturalCategory, type Region } from '@/services/mapService';
 import 'leaflet/dist/leaflet.css';
 import '@/components/map/leaflet-custom.css';
 
@@ -107,7 +106,9 @@ const Map = () => {
         contact_info: {},
         status: 'active',
         submitted_by: 'Usuário Público',
-        tags: [workData.category.toLowerCase(), workData.region.toLowerCase()]
+        tags: [workData.category.toLowerCase(), workData.region.toLowerCase()],
+        approved_by: null,
+        approval_date: null
       });
 
       if (newWork) {

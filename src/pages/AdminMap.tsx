@@ -18,9 +18,11 @@ import {
   deleteCulturalWork,
   getCulturalCategories,
   getRegions,
-  createCulturalWork
+  createCulturalWork,
+  type CulturalWorkWithDetails, 
+  type CulturalCategory, 
+  type Region 
 } from '@/services/mapService';
-import { CulturalWorkWithDetails, CulturalCategory, Region } from '@/lib/supabase';
 import 'leaflet/dist/leaflet.css';
 import '@/components/map/leaflet-custom.css';
 
@@ -203,7 +205,9 @@ const AdminMap = () => {
           contact_info: {},
           status: 'active',
           submitted_by: user?.email || 'Admin',
-          tags: [workData.category.toLowerCase(), workData.region.toLowerCase()]
+          tags: [workData.category.toLowerCase(), workData.region.toLowerCase()],
+          approved_by: user?.email || 'Admin',
+          approval_date: new Date().toISOString()
         });
 
         if (newWork) {

@@ -7,21 +7,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { X, Plus, MapPin, User, Tag, Image as ImageIcon } from 'lucide-react';
-import { 
-  Region, 
-  CulturalCategory, 
-  CulturalType, 
-  Material, 
-  CulturalWork 
-} from '@/lib/supabase';
-import { 
-  getRegions, 
-  getCulturalCategories, 
-  getCulturalTypes, 
-  getMaterials,
-  createCulturalWork,
-  getAddressFromCoordinates
-} from '@/services/mapService';
+import { createCulturalWork, getCulturalCategories, getRegions, type CulturalCategory, type Region } from '@/services/mapService';
+import { getCulturalTypes, getMaterials, getAddressFromCoordinates } from '@/services/mapService';
+import type { CulturalWork, CulturalType, Material } from '@/services/mapService';
 
 interface AddWorkModalProps {
   isOpen: boolean;
@@ -204,7 +192,7 @@ const AddWorkModal: React.FC<AddWorkModalProps> = ({
     setIsLoading(true);
     
     try {
-      const workData = {
+      const newWork = await createCulturalWork({
         title: formData.title,
         description: formData.description,
         author: formData.author,
@@ -222,14 +210,14 @@ const AddWorkModal: React.FC<AddWorkModalProps> = ({
           website: formData.contact_website || undefined,
         },
         tags: formData.tags,
-        status: 'active' as const,
-        submitted_by: 'usuário', // TODO: integrar com sistema de autenticação
-      };
-
-      const createdWork = await createCulturalWork(workData);
+        status: 'active',
+        submitted_by: 'Público',
+        approved_by: null,
+        approval_date: null
+      });
       
-      if (createdWork) {
-        onSuccess(createdWork);
+      if (newWork) {
+        onSuccess(newWork);
         onClose();
       } else {
         throw new Error('Erro ao criar obra');

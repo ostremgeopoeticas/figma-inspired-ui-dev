@@ -15,7 +15,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { CulturalWorkWithDetails } from '@/lib/supabase';
+import { type CulturalWorkWithDetails } from '@/services/mapService';
 
 interface WorkDetailsProps {
   work: CulturalWorkWithDetails | null;
@@ -178,27 +178,27 @@ const WorkDetails: React.FC<WorkDetailsProps> = ({
                 <div>
                   <h3 className="text-lg font-semibold text-[#004A24] mb-2">Contato</h3>
                   <div className="space-y-2">
-                    {work.contact_info.email && (
+                    {((work.contact_info as any)?.email) && (
                       <a
-                        href={`mailto:${work.contact_info.email}`}
+                        href={`mailto:${(work.contact_info as any).email}`}
                         className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
                       >
                         <Mail className="w-4 h-4" />
-                        {work.contact_info.email}
+                        {(work.contact_info as any).email}
                       </a>
                     )}
-                    {work.contact_info.phone && (
+                    {((work.contact_info as any)?.phone) && (
                       <a
-                        href={`tel:${work.contact_info.phone}`}
+                        href={`tel:${(work.contact_info as any).phone}`}
                         className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
                       >
                         <Phone className="w-4 h-4" />
-                        {work.contact_info.phone}
+                        {(work.contact_info as any).phone}
                       </a>
                     )}
-                    {work.contact_info.website && (
+                    {((work.contact_info as any)?.website) && (
                       <a
-                        href={work.contact_info.website}
+                        href={(work.contact_info as any).website}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
