@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import aboutHero from '@/assets/about-hero.jpg';
+import bottomImage from '@/assets/imagem_bottom_pag_sobre.png';
 
 const About = () => {
   return (
@@ -84,17 +85,93 @@ const About = () => {
         {/* Justificativa */}
         <section className="mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6">Justificativa</h2>
-          <p className="text-base md:text-lg text-[#121A0F] leading-relaxed mb-6">
-            A Bacia do Rio Doce é um território marcado por ricas diversidades cultural e socioambiental. Este contexto de integrações da
-            diversidade. Este projeto visa construir uma memória viva e crítica das lutas e das resistências empreendidas na região. Núcleo destes
-            lugares para a construção de narrativas críticas, contribuindo para a valorização e preservação do patrimônio cultural da
-            região é necessário.
-          </p>
-          <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/6ef1e15276a6a497199d6aa81fd7f3b5e21d748e?width=778"
-            alt="Pessoas participando de atividades do projeto"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
+          
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              {/* Texto */}
+              <div className="p-6 md:p-8">
+                <div className="space-y-4">
+                  <p className="text-base md:text-lg text-[#121A0F] leading-relaxed">
+                    A Bacia do Rio Doce é um território marcado por ricas diversidades cultural e socioambiental. Este contexto de integrações da
+                    diversidade. Este projeto visa construir uma memória viva e crítica das lutas e das resistências empreendidas na região.
+                  </p>
+                  
+                  <div className="border-l-4 border-[#BB4514] pl-4 bg-[#FFF8F1] p-4 rounded-r-lg">
+                    <p className="text-base md:text-lg text-[#121A0F] leading-relaxed font-medium">
+                      Núcleo destes lugares para a construção de narrativas críticas, contribuindo para a valorização e preservação do patrimônio cultural da
+                      região é necessário.
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4 pt-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-[#BB4514] rounded-full"></div>
+                      <span className="text-sm font-medium text-[#004A24]">Preservação Cultural</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-[#004A24] rounded-full"></div>
+                      <span className="text-sm font-medium text-[#004A24]">Memória Viva</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-[#E8F5E9] rounded-full border border-[#004A24]"></div>
+                      <span className="text-sm font-medium text-[#004A24]">Resistência</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Imagem */}
+              <div className="relative h-64 lg:h-full min-h-[300px]">
+                <img
+                  src={bottomImage}
+                  alt="Paisagem da Bacia do Rio Doce - Território de diversidades culturais e socioambientais"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3">
+                    <p className="text-sm text-[#004A24] font-medium text-center">
+                      Território de diversidades culturais e socioambientais
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Cards de destaque */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            <div className="bg-[#004A24] text-white p-4 rounded-lg text-center">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold mb-2">Território Rico</h4>
+              <p className="text-sm opacity-90">Diversidades cultural e socioambiental</p>
+            </div>
+            
+            <div className="bg-[#BB4514] text-white p-4 rounded-lg text-center">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold mb-2">Memória Viva</h4>
+              <p className="text-sm opacity-90">Construção de narrativas críticas</p>
+            </div>
+            
+            <div className="bg-[#E8F5E9] text-[#004A24] p-4 rounded-lg text-center border-2 border-[#004A24]">
+              <div className="w-12 h-12 bg-[#004A24]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold mb-2">Preservação</h4>
+              <p className="text-sm opacity-90">Patrimônio cultural da região</p>
+            </div>
+          </div>
         </section>
       </div>
 

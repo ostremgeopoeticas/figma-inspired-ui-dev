@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Phone, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import contactBanner from '@/assets/banner_contato_page.png';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -128,7 +129,12 @@ const Contact = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[200px] md:h-[300px] relative bg-gradient-to-r from-[#004A24] to-[#4B5A43] overflow-hidden">
+      <section className="w-full h-[200px] md:h-[300px] relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${contactBanner})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-[#F6D8B8] text-3xl md:text-5xl font-bold">Contato</h1>

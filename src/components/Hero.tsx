@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import heroBackground from '@/assets/hero-background.jpg';
+import heroBackground from '@/assets/banner_header_principal.png';
 import { motion } from 'framer-motion';
 
 const Hero = () => {

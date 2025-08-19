@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import mapBanner from '@/assets/banner_mapa_page.png';
 
 const Map = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,12 +25,12 @@ const Map = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[150px] md:h-[200px] relative bg-gradient-to-r from-[#BB4514] to-[#D4561A] overflow-hidden">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
-          alt="Banner mapa das geopoéticas"
-          className="w-full h-full object-cover opacity-50"
+      <section className="w-full h-[150px] md:h-[200px] relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${mapBanner})` }}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-[#F6D8B8] text-2xl md:text-4xl font-bold text-center">Mapa das Geopoéticas</h1>
         </div>

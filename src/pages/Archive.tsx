@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import archiveHero from '@/assets/archive-hero.jpg';
+import archiveHero from '@/assets/banner_acervo_digital_page.png';
 
 const Archive = () => {
   const categories = ["Todos os Conteúdos", "Literatura", "Artes"];

@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import EventBanner from '@/components/EventBanner';
 import AnimatedSection from '@/components/AnimatedSection';
 import { motion } from 'framer-motion';
+import eventsBanner from '@/assets/banner_eventos_page.png';
 
 const Events = () => {
   return (
@@ -13,7 +14,7 @@ const Events = () => {
       {/* Hero Section with event info */}
       <div className="relative w-full h-64 md:h-96">
         <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/b40096a763428a08b2da23b86127f33486875a6a?width=2560"
+          src={eventsBanner}
           alt="Banner Ipatinga e Coronel Fabriciano"
           className="w-full h-full object-cover"
         />
@@ -21,7 +22,6 @@ const Events = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <div className="flex items-center justify-center mb-2">
-              <img src="https://api.builder.io/api/v1/image/assets/TEMP/53bab51df5ffdee1dc031b6b054768e906c68ca2?width=306" alt="Logo" className="w-8 h-8 md:w-12 md:h-12 mr-2 md:mr-3 filter brightness-0 invert" />
               <h1 className="text-2xl md:text-4xl font-bold">1º ENCONTRO</h1>
             </div>
             <h2 className="text-xl md:text-3xl font-bold">Ipatinga e Coronel Fabriciano</h2>
