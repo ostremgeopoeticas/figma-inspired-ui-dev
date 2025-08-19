@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Instagram, Facebook, Twitter, Youtube, MessageCircle, Users, Globe, Heart } from 'lucide-react';
 import contactBanner from '@/assets/banner_contato_page.png';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
     poeticSubmission: ''
   });
+  const [activeTab, setActiveTab] = useState('contact');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -41,6 +42,7 @@ const Contact = () => {
       setFormData({
         name: '',
         email: '',
+        subject: '',
         message: '',
         poeticSubmission: ''
       });
@@ -83,6 +85,7 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "E-mails",
+      color: "bg-blue-500",
       details: [
         { label: "Coordenação do projeto:", email: "ostrem@geometrias.com.br" },
         { label: "Para contato:", email: "ola.geometrias@gmail.com" }
@@ -91,36 +94,58 @@ const Contact = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Localização",
+      color: "bg-green-500",
       details: [
         { label: "Região de atuação:", value: "Bacia do Rio Doce" }
+      ]
+    },
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      title: "Redes Sociais",
+      color: "bg-purple-500",
+      details: [
+        { label: "Instagram:", value: "@ostremgeopoeticas" },
+        { label: "YouTube:", value: "Em breve" }
       ]
     }
   ];
 
   const socialLinks = [
     {
-      name: 'Instagram',
-      icon: <Instagram className="w-5 h-5" />,
-      url: 'https://www.instagram.com/ostremgeopoeticas/',
-      color: 'bg-gradient-to-r from-purple-500 to-pink-500'
+      name: "Instagram",
+      url: "https://instagram.com/ostremgeopoeticas",
+      icon: <Instagram className="w-6 h-6" />,
+      color: "bg-gradient-to-r from-purple-500 to-pink-500"
     },
     {
-      name: 'Facebook',
-      icon: <Facebook className="w-5 h-5" />,
-      url: '#',
-      color: 'bg-blue-600'
+      name: "YouTube",
+      url: "#",
+      icon: <Youtube className="w-6 h-6" />,
+      color: "bg-gradient-to-r from-red-500 to-red-600"
+    }
+  ];
+
+  const quickActions = [
+    {
+      title: "Contribuir com Poesia",
+      description: "Envie sua poética para o acervo digital",
+      icon: <Heart className="w-8 h-8" />,
+      action: () => setActiveTab('poetry'),
+      color: "from-pink-500 to-rose-500"
     },
     {
-      name: 'Twitter',
-      icon: <Twitter className="w-5 h-5" />,
-      url: '#',
-      color: 'bg-blue-400'
+      title: "Participar de Eventos",
+      description: "Fique por dentro dos próximos encontros",
+      icon: <Users className="w-8 h-8" />,
+      action: () => window.location.href = '/eventos',
+      color: "from-blue-500 to-indigo-500"
     },
     {
-      name: 'YouTube',
-      icon: <Youtube className="w-5 h-5" />,
-      url: '#',
-      color: 'bg-red-600'
+      title: "Conhecer o Projeto",
+      description: "Saiba mais sobre nossa iniciativa",
+      icon: <Globe className="w-8 h-8" />,
+      action: () => window.location.href = '/sobre',
+      color: "from-green-500 to-emerald-500"
     }
   ];
 
@@ -129,294 +154,351 @@ const Contact = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="w-full h-[200px] md:h-[300px] relative overflow-hidden">
+      <section className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${contactBanner})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#BB4514]/80 to-[#8B4513]/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#BB4514]/20 to-[#8B4513]/20" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-[#F6D8B8] text-3xl md:text-5xl font-bold">Contato</h1>
-            <p className="text-[#E8F5E9] mt-2 text-lg">Entre em contato conosco</p>
+            <h1 className="text-[#F6D8B8] text-4xl md:text-6xl font-bold text-center drop-shadow-lg mb-4">
+              Entre em Contato
+            </h1>
+            <p className="text-[#E8F5E9] text-lg md:text-xl max-w-3xl mx-auto px-4">
+              Conecte-se conosco e faça parte do projeto Os Trem
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Dúvidas</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Colaborações</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Poéticas</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="w-full max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-          {/* Informações de Contato e Formulário */}
-          <div>
-            {/* Informações de Contato */}
-            <section className="mb-10 md:mb-12">
-              <motion.h2 
-                className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6 md:mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
+        
+        {/* Quick Actions */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Como Você Pode Participar</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {quickActions.map((action, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                onClick={action.action}
               >
-                Informações de Contato
-              </motion.h2>
-              
-              <div className="space-y-6 md:space-y-8">
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white rounded-xl shadow-lg p-5 md:p-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                <div className={`w-16 h-16 bg-gradient-to-r ${action.color} rounded-full flex items-center justify-center mx-auto mb-6 text-white`}>
+                  {action.icon}
+                </div>
+                <h3 className="text-xl font-bold text-[#004A24] mb-3 text-center">{action.title}</h3>
+                <p className="text-gray-600 text-center mb-6">{action.description}</p>
+                <div className="text-center">
+                  <span className="text-[#BB4514] font-medium hover:text-[#A03D12] transition-colors">
+                    Saiba mais →
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact Forms */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Fale Conosco</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          {/* Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-white rounded-2xl shadow-lg p-2">
+              <div className="flex">
+                <button
+                  onClick={() => setActiveTab('contact')}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                    activeTab === 'contact'
+                      ? 'bg-[#BB4514] text-white shadow-lg'
+                      : 'text-gray-600 hover:text-[#BB4514]'
+                  }`}
+                >
+                  Contato Geral
+                </button>
+                <button
+                  onClick={() => setActiveTab('poetry')}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                    activeTab === 'poetry'
+                      ? 'bg-[#BB4514] text-white shadow-lg'
+                      : 'text-gray-600 hover:text-[#BB4514]'
+                  }`}
+                >
+                  Contribuir com Poesia
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Form */}
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              {activeTab === 'contact' ? (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome Completo *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all"
+                      placeholder="Seu nome completo"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      E-mail *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all"
+                      placeholder="seu@email.com"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                      Assunto *
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all"
+                      placeholder="Assunto da mensagem"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      Mensagem *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={6}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all resize-none"
+                      placeholder="Escreva sua mensagem aqui..."
+                    />
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#BB4514] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#A03D12] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    <div className="flex items-center mb-4">
-                      <div className="bg-[#BB4514] p-2 rounded-lg text-white">
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        Enviar Mensagem
+                      </>
+                    )}
+                  </button>
+                </form>
+              ) : (
+                <div className="space-y-6">
+                  <div className="text-center mb-6">
+                    <Heart className="w-12 h-12 text-[#BB4514] mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-[#004A24] mb-2">Contribua com sua Poética</h3>
+                    <p className="text-gray-600">
+                      Compartilhe sua poesia, memória ou reflexão sobre a Bacia do Rio Doce
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="poeticSubmission" className="block text-sm font-medium text-gray-700 mb-2">
+                      Sua Contribuição Poética *
+                    </label>
+                    <textarea
+                      id="poeticSubmission"
+                      name="poeticSubmission"
+                      value={formData.poeticSubmission}
+                      onChange={handleInputChange}
+                      rows={8}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all resize-none"
+                      placeholder="Escreva sua poesia, memória ou reflexão sobre a Bacia do Rio Doce..."
+                    />
+                  </div>
+                  
+                  <button
+                    onClick={handlePoeticSubmission}
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3 px-6 rounded-lg font-medium hover:from-pink-600 hover:to-rose-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Heart className="w-5 h-5" />
+                        Enviar Contribuição
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+              
+              {/* Success/Error Messages */}
+              {submitSuccess && (
+                <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-green-800 font-medium">
+                    {activeTab === 'contact' ? 'Mensagem enviada com sucesso!' : 'Contribuição enviada com sucesso!'}
+                  </p>
+                </div>
+              )}
+              
+              {submitError && (
+                <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-800 font-medium">{submitError}</p>
+                </div>
+              )}
+            </div>
+            
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-lg p-8">
+                <h3 className="text-2xl font-bold text-[#004A24] mb-6">Informações de Contato</h3>
+                
+                <div className="space-y-6">
+                  {contactInfo.map((info, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                      <div className={`w-12 h-12 ${info.color} rounded-full flex items-center justify-center text-white flex-shrink-0`}>
                         {info.icon}
                       </div>
-                      <h3 className="text-lg md:text-xl font-bold text-[#004A24] ml-3">{info.title}</h3>
-                    </div>
-                    
-                    <div className="space-y-3">
-                      {info.details.map((detail, detailIndex) => (
-                        <div key={detailIndex}>
-                          {detail.email ? (
-                            <div>
-                              <p className="text-[#121A0F] font-medium text-sm md:text-base">{detail.label}</p>
-                              <a 
-                                href={`mailto:${detail.email}`} 
-                                className="text-[#BB4514] hover:text-[#A03D12] transition-colors text-sm md:text-base flex items-center mt-1"
-                              >
-                                <Mail className="w-4 h-4 mr-2" />
-                                {detail.email}
-                              </a>
+                      <div>
+                        <h4 className="font-bold text-[#004A24] mb-2">{info.title}</h4>
+                        <div className="space-y-1">
+                          {info.details.map((detail, detailIndex) => (
+                            <div key={detailIndex} className="text-gray-600">
+                              <span className="font-medium">{detail.label}</span>
+                              {detail.email && (
+                                <a
+                                  href={`mailto:${detail.email}`}
+                                  className="text-[#BB4514] hover:text-[#A03D12] transition-colors ml-1"
+                                >
+                                  {detail.email}
+                                </a>
+                              )}
+                              {detail.value && (
+                                <span className="ml-1">{detail.value}</span>
+                              )}
                             </div>
-                          ) : (
-                            <p className="text-[#121A0F] text-sm md:text-base">
-                              <span className="font-medium">{detail.label}</span> {detail.value}
-                            </p>
-                          )}
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </section>
-
-            {/* Redes Sociais */}
-            <section className="mb-10 md:mb-12">
-              <motion.h2 
-                className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6 md:mb-8 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                Siga-nos nas Redes Sociais
-              </motion.h2>
               
-              <motion.div 
-                className="flex justify-center gap-4 md:gap-6 flex-wrap"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${social.color} w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white font-bold hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg`}
-                    aria-label={`Siga-nos no ${social.name}`}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </motion.div>
-            </section>
-          </div>
-
-          {/* Formulário de Contato */}
-          <div>
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="bg-white rounded-xl shadow-lg p-5 md:p-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-6">Envie-nos uma mensagem</h2>
+              {/* Social Links */}
+              <div className="bg-white rounded-2xl shadow-lg p-8">
+                <h3 className="text-2xl font-bold text-[#004A24] mb-6">Redes Sociais</h3>
                 
-                {submitSuccess && (
-                  <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded">
-                    <p>Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
-                  </div>
-                )}
-                
-                {submitError && (
-                  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
-                    <p>{submitError}</p>
-                  </div>
-                )}
-                
-                <form onSubmit={handleSubmit}>
-                  <div className="space-y-5">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[#004A24] mb-2">
-                        Nome Completo
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Seu nome completo"
-                        className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-[#004A24] mb-2">
-                        E-mail
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="seu@email.com"
-                        className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-[#004A24] mb-2">
-                        Mensagem
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={5}
-                        placeholder="Digite sua mensagem aqui..."
-                        className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all resize-none"
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-[#BB4514] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#A03D12] transition-all flex items-center justify-center disabled:opacity-50"
+                <div className="grid grid-cols-2 gap-4">
+                  {socialLinks.map((social, index) => (
+                    <a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${social.color} text-white p-4 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-3`}
                     >
-                      {isSubmitting ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Enviando...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-5 h-5 mr-2" />
-                          Enviar Mensagem
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
+                      {social.icon}
+                      <span className="font-medium">{social.name}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </motion.section>
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Envie sua Poética */}
-        <motion.section 
-          className="mt-12 md:mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="bg-white rounded-xl shadow-lg p-5 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-4 md:mb-6">Envie sua Poética - Projeto Os Trem</h2>
-            
-            <div className="prose max-w-none mb-6">
-              <p className="text-[#121A0F] mb-4 leading-relaxed">
-                <strong>"Os Trem: Geopoéticas da Bacia do Rio Doce"</strong> busca reunir e divulgar as expressões artísticas e culturais da região. 
-                Sua história, suas memórias e as suas manifestações podem contribuir para mapear e celebrar a diversidade cultural da Bacia do Rio Doce.
-              </p>
+        {/* Map Section */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Nossa Região de Atuação</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-bold text-[#004A24] mb-4">Bacia do Rio Doce</h3>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Nossa atuação se concentra na Bacia do Rio Doce, uma região rica em diversidade cultural e socioambiental. 
+                  Trabalhamos com comunidades locais para mapear, preservar e celebrar as manifestações culturais da região.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-5 h-5 text-[#BB4514]" />
+                    <span className="text-gray-700">229 municípios</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-[#BB4514]" />
+                    <span className="text-gray-700">Milhares de comunidades</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Globe className="w-5 h-5 text-[#BB4514]" />
+                    <span className="text-gray-700">Rica diversidade cultural</span>
+                  </div>
+                </div>
+              </div>
               
-              <p className="text-[#121A0F] mb-4 leading-relaxed">
-                Envie aqui sua poética para que ela possa fazer parte das manifestações culturais e artísticas do projeto e dos dados da geografia poética.
-              </p>
+              <div className="bg-gray-200 rounded-xl h-64 flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                  <MapPin className="w-16 h-16 mx-auto mb-4" />
+                  <p>Mapa da Bacia do Rio Doce</p>
+                  <p className="text-sm">Em breve: mapa interativo</p>
+                </div>
+              </div>
             </div>
-            
-            <div className="mb-6">
-              <label htmlFor="poeticSubmission" className="block text-sm font-medium text-[#004A24] mb-2">
-                Sua contribuição poética
-              </label>
-              <textarea
-                id="poeticSubmission"
-                name="poeticSubmission"
-                value={formData.poeticSubmission}
-                onChange={handleInputChange}
-                rows={6}
-                placeholder="Compartilhe suas expressões artísticas, memórias ou manifestações culturais relacionadas à Bacia do Rio Doce..."
-                className="w-full px-4 py-3 border border-[#BB4514] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-transparent transition-all resize-none"
-                disabled={isSubmitting}
-              />
-            </div>
-
-            <div className="bg-[#E8F5E9] rounded-lg p-4 mb-6">
-              <p className="text-sm text-[#004A24] mb-2">
-                <strong>Ao enviar sua contribuição, você estará ajudando a construir uma memória coletiva e a valorizar as manifestações culturais da Bacia do Rio Doce.</strong>
-              </p>
-              <p className="text-xs text-[#004A24]">
-                Esperamos contribuições artísticas, poéticas, literárias ou qualquer outra forma de expressão cultural que dialogue com o território.
-              </p>
-            </div>
-
-            <div className="bg-[#FFF8F1] border-l-4 border-[#BB4514] p-4 mb-6 rounded">
-              <p className="text-sm text-[#121A0F]">
-                <strong>Para enviar conteúdo multimídia (imagens, áudios ou vídeos), entre em contato conosco pelos e-mails informados acima.</strong>
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={handlePoeticSubmission}
-              disabled={isSubmitting}
-              className="w-full md:w-auto bg-[#004A24] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#005a2d] transition-all flex items-center justify-center disabled:opacity-50"
-            >
-              {isSubmitting ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Enviando...
-                </>
-              ) : (
-                <>
-                  <Send className="w-5 h-5 mr-2" />
-                  Envie sua poética
-                </>
-              )}
-            </button>
           </div>
-        </motion.section>
+        </section>
       </div>
 
       <Footer />

@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { supabaseAdmin } from '@/lib/supabase';
 import type { Database } from '@/integrations/supabase/types';
 
 // Usar os tipos do Supabase gerados automaticamente
@@ -29,7 +29,7 @@ export interface MapFilters {
 // Funções para buscar dados de referência
 export const getRegions = async (): Promise<Region[]> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('regions')
       .select('*')
       .order('name');
@@ -44,7 +44,7 @@ export const getRegions = async (): Promise<Region[]> => {
 
 export const getCulturalCategories = async (): Promise<CulturalCategory[]> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('cultural_categories')
       .select('*')
       .order('name');
@@ -59,7 +59,7 @@ export const getCulturalCategories = async (): Promise<CulturalCategory[]> => {
 
 export const getCulturalTypes = async (categoryId?: number): Promise<CulturalType[]> => {
   try {
-    let query = supabase
+    let query = supabaseAdmin
       .from('cultural_types')
       .select('*')
       .order('name');
@@ -80,7 +80,7 @@ export const getCulturalTypes = async (categoryId?: number): Promise<CulturalTyp
 
 export const getMaterials = async (): Promise<Material[]> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('materials')
       .select('*')
       .order('name');
@@ -96,7 +96,7 @@ export const getMaterials = async (): Promise<Material[]> => {
 // Funções para obras culturais
 export const getCulturalWorks = async (filters?: MapFilters): Promise<CulturalWorkWithDetails[]> => {
   try {
-    let query = supabase
+    let query = supabaseAdmin
       .from('cultural_works')
       .select(`
         *,
@@ -136,7 +136,7 @@ export const getCulturalWorks = async (filters?: MapFilters): Promise<CulturalWo
 // Função específica para admin que inclui todos os status
 export const getAllCulturalWorksForAdmin = async (filters?: { searchTerm?: string; status?: string; categoryId?: number }): Promise<CulturalWorkWithDetails[]> => {
   try {
-    let query = supabase
+    let query = supabaseAdmin
       .from('cultural_works')
       .select(`
         *,
@@ -171,7 +171,7 @@ export const getAllCulturalWorksForAdmin = async (filters?: { searchTerm?: strin
 
 export const getCulturalWorkById = async (id: number): Promise<CulturalWorkWithDetails | null> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('cultural_works')
       .select(`
         *,
@@ -196,7 +196,7 @@ export const getCulturalWorksInBounds = async (
   filters?: MapFilters
 ): Promise<CulturalWorkWithDetails[]> => {
   try {
-    let query = supabase
+    let query = supabaseAdmin
       .from('cultural_works')
       .select(`
         *,
@@ -258,7 +258,7 @@ export const createCulturalWork = async (work: Omit<CulturalWork, 'id' | 'create
       approval_date: work.approval_date,
     };
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('cultural_works')
       .insert([workData])
       .select()
@@ -274,7 +274,7 @@ export const createCulturalWork = async (work: Omit<CulturalWork, 'id' | 'create
 
 export const updateCulturalWork = async (id: number, updates: Partial<CulturalWork>): Promise<CulturalWork | null> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('cultural_works')
       .update(updates)
       .eq('id', id)
@@ -292,7 +292,7 @@ export const updateCulturalWork = async (id: number, updates: Partial<CulturalWo
 export const deleteCulturalWork = async (id: number): Promise<boolean> => {
   try {
     // Soft delete - marcar como inativo
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('cultural_works')
       .update({ status: 'inactive' })
       .eq('id', id);
@@ -307,7 +307,7 @@ export const deleteCulturalWork = async (id: number): Promise<boolean> => {
 
 export const updateCulturalWorkStatus = async (id: number, status: 'active' | 'inactive' | 'pending'): Promise<boolean> => {
   try {
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('cultural_works')
       .update({ status })
       .eq('id', id);
@@ -323,7 +323,7 @@ export const updateCulturalWorkStatus = async (id: number, status: 'active' | 'i
 // Funções para busca e estatísticas
 export const searchCulturalWorks = async (searchTerm: string, limit: number = 20): Promise<CulturalWorkWithDetails[]> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('cultural_works')
       .select(`
         *,
@@ -345,17 +345,17 @@ export const searchCulturalWorks = async (searchTerm: string, limit: number = 20
 
 export const getCulturalWorksStats = async () => {
   try {
-    const { count: totalWorks, error: totalError } = await supabase
+    const { count: totalWorks, error: totalError } = await supabaseAdmin
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active');
 
-    const { data: categoryStats, error: categoryError } = await supabase
+    const { data: categoryStats, error: categoryError } = await supabaseAdmin
       .from('cultural_works')
       .select('category_id, cultural_categories(name)')
       .eq('status', 'active');
 
-    const { data: regionStats, error: regionError } = await supabase
+    const { data: regionStats, error: regionError } = await supabaseAdmin
       .from('cultural_works')
       .select('region_id, regions(name)')
       .eq('status', 'active');
@@ -396,30 +396,30 @@ export const getCulturalWorksStats = async () => {
 // Estatísticas específicas para admin (incluindo todos os status)
 export const getAdminCulturalWorksStats = async () => {
   try {
-    const { count: totalWorks, error: totalError } = await supabase
+    const { count: totalWorks, error: totalError } = await supabaseAdmin
       .from('cultural_works')
       .select('*', { count: 'exact', head: true });
 
-    const { count: activeWorks, error: activeError } = await supabase
+    const { count: activeWorks, error: activeError } = await supabaseAdmin
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active');
 
-    const { count: pendingWorks, error: pendingError } = await supabase
+    const { count: pendingWorks, error: pendingError } = await supabaseAdmin
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'pending');
 
-    const { count: inactiveWorks, error: inactiveError } = await supabase
+    const { count: inactiveWorks, error: inactiveError } = await supabaseAdmin
       .from('cultural_works')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'inactive');
 
-    const { count: totalCategories, error: categoriesError } = await supabase
+    const { count: totalCategories, error: categoriesError } = await supabaseAdmin
       .from('cultural_categories')
       .select('*', { count: 'exact', head: true });
 
-    const { count: totalRegions, error: regionsError } = await supabase
+    const { count: totalRegions, error: regionsError } = await supabaseAdmin
       .from('regions')
       .select('*', { count: 'exact', head: true });
 

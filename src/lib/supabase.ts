@@ -1,4 +1,5 @@
 import { supabase as supabaseClient } from '@/integrations/supabase/client'
+import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/integrations/supabase/types'
 
 // Exportar tipos do mapService
@@ -35,4 +36,17 @@ export interface BlogCategory {
 
 // Usar o cliente Supabase da integração
 export const supabase = supabaseClient
-export const supabaseAdmin = supabaseClient
+
+// Criar cliente admin com service role key
+const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqaGd2Y2RyYmpzbHV5bnN5eWdtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTU0MzQ0MCwiZXhwIjoyMDcxMTE5NDQwfQ.-rVBiTaIvMWxUnSGaDXoCujoNzSGQgCr6sBfQVuhDJI";
+
+export const supabaseAdmin = createClient<Database>(
+  "https://ujhgvcdrbjsluynsyygm.supabase.co",
+  SUPABASE_SERVICE_ROLE_KEY,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  }
+);

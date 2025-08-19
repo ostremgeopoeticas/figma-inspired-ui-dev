@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Users, Award, GraduationCap, Building, Mail, Linkedin, Globe, Star } from 'lucide-react';
 import teamHero from '@/assets/banner_equipe_pag.png';
 import anaLuizaDrummond from '@/assets/ana_luiza_drummond.png';
 import angelaMariaPena from '@/assets/angela_maria_pena_nova.png';
@@ -11,31 +12,49 @@ import ranielleFigueiredo from '@/assets/prof_dra_ranielle.png';
 import jorgeTeodoro from '@/assets/prof_dr_jorge.png';
 import logoIFMG from '@/assets/logo_ifmg.png';
 import logoUFOP from '@/assets/logo_ufop.png';
-import { motion } from 'framer-motion';
 
 const Team = () => {
+  const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+
   const coordinator = {
     name: "Profa. Dra. Ana Luiza Duarte de Brito Drummond",
     role: "Coordenação do projeto",
     institution: "Instituto Federal de Minas Gerais campus São João Evangelista",
-    image: anaLuizaDrummond
+    image: anaLuizaDrummond,
+    email: "ana.luiza@ifmg.edu.br",
+    linkedin: "https://linkedin.com/in/ana-luiza-drummond",
+    website: "https://ifmg.edu.br",
+    specialties: ["Geopoética", "Geografia Cultural", "Memória Territorial"],
+    description: "Professora e pesquisadora dedicada ao estudo das geopoéticas e manifestações culturais da Bacia do Rio Doce."
   };
 
   const students = [
     {
       name: "Angela Maria Peña Novoa",
       institution: "Corporación universitaria UNITEC, Bogotá, Colombia",
-      image: angelaMariaPena
+      image: angelaMariaPena,
+      role: "Pesquisadora",
+      email: "angela.pena@unitec.edu.co",
+      specialties: ["Arte e Cultura", "Pesquisa de Campo", "Documentação"],
+      description: "Pesquisadora colombiana especializada em arte e cultura latino-americana."
     },
     {
       name: "Isabela Stefani de Paula Silva",
       institution: "Instituto Federal de Minas Gerais campus São João Evangelista",
-      image: isabelaStefani
+      image: isabelaStefani,
+      role: "Estudante de Pesquisa",
+      email: "isabela.stefani@ifmg.edu.br",
+      specialties: ["Geografia", "Mapeamento Cultural", "Tecnologia"],
+      description: "Estudante dedicada ao mapeamento cultural e tecnológico da região."
     },
     {
       name: "Riann Matheus Dias da Costa",
       institution: "Instituto Federal de Minas Gerais campus São João Evangelista",
-      image: riannMatheus
+      image: riannMatheus,
+      role: "Desenvolvedor",
+      email: "riann.matheus@ifmg.edu.br",
+      specialties: ["Desenvolvimento Web", "Sistemas", "Tecnologia"],
+      description: "Desenvolvedor responsável pela plataforma digital do projeto."
     }
   ];
 
@@ -43,17 +62,29 @@ const Team = () => {
     {
       name: "Profa. Dra. Helena Santos Assunção",
       institution: "Instituto Federal de Minas Gerais campus Ouro Preto",
-      image: helenaAssuncao
+      image: helenaAssuncao,
+      role: "Colaboradora",
+      email: "helena.assuncao@ifmg.edu.br",
+      specialties: ["Educação", "Pesquisa", "Extensão"],
+      description: "Professora colaboradora especializada em educação e extensão universitária."
     },
     {
       name: "Profa. Dra. Ranielle Menezes de Figueiredo",
       institution: "Universidade Federal de Ouro Preto",
-      image: ranielleFigueiredo
+      image: ranielleFigueiredo,
+      role: "Colaboradora",
+      email: "ranielle.figueiredo@ufop.edu.br",
+      specialties: ["Geografia", "Pesquisa", "Academia"],
+      description: "Pesquisadora da UFOP com foco em geografia e estudos territoriais."
     },
     {
       name: "Prof. Dr. Jorge Benedito de Freitas Teodoro",
       institution: "Universidade Federal de Ouro Preto",
-      image: jorgeTeodoro
+      image: jorgeTeodoro,
+      role: "Colaborador",
+      email: "jorge.teodoro@ufop.edu.br",
+      specialties: ["Pesquisa", "Academia", "Extensão"],
+      description: "Professor colaborador com vasta experiência em pesquisa acadêmica."
     }
   ];
 
@@ -61,13 +92,22 @@ const Team = () => {
     {
       name: "IFMG",
       fullName: "Instituto Federal de Minas Gerais",
-      logo: logoIFMG
+      logo: logoIFMG,
+      description: "Instituição federal de ensino superior e técnico"
     },
     {
       name: "UFOP",
       fullName: "Universidade Federal de Ouro Preto",
-      logo: logoUFOP
+      logo: logoUFOP,
+      description: "Universidade pública federal de excelência"
     }
+  ];
+
+  const stats = [
+    { label: "Membros", value: "7", icon: <Users className="w-6 h-6" /> },
+    { label: "Instituições", value: "2", icon: <Building className="w-6 h-6" /> },
+    { label: "Especialidades", value: "12+", icon: <Award className="w-6 h-6" /> },
+    { label: "Experiência", value: "15+ anos", icon: <Star className="w-6 h-6" /> }
   ];
 
   return (
@@ -75,173 +115,322 @@ const Team = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative w-full h-[300px] md:h-[400px] overflow-hidden">
+      <section className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${teamHero})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#BB4514]/80 to-[#8B4513]/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#BB4514]/20 to-[#8B4513]/20" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <motion.h1 
-            className="text-[#F6D8B8] text-4xl md:text-6xl font-bold text-center drop-shadow-lg"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            Equipe
-          </motion.h1>
+          <div className="text-center">
+            <h1 className="text-[#F6D8B8] text-4xl md:text-6xl font-bold text-center drop-shadow-lg mb-4">
+              Nossa Equipe
+            </h1>
+            <p className="text-[#E8F5E9] text-lg md:text-xl max-w-3xl mx-auto px-4">
+              Conheça os pesquisadores, estudantes e colaboradores que fazem parte do projeto
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Pesquisadores</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Estudantes</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <span className="text-[#F6D8B8] text-sm font-medium">Colaboradores</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
-        {/* Coordenação */}
-        <motion.section 
-          className="mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-8 md:mb-12 text-center">
-            Coordenação
-          </h2>
-          <div className="flex justify-center">
-            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-lg text-center border border-[#E8F5E9]">
-              <div className="relative mb-8">
-                <img
-                  src={coordinator.image}
-                  alt={coordinator.name}
-                  className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full mx-auto object-cover border-4 border-[#BB4514] shadow-lg"
-                />
-                <div className="absolute -bottom-3 -right-3 bg-[#BB4514] text-white rounded-full p-3">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+        
+        {/* Estatísticas */}
+        <section className="mb-16">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-4">Nossa Equipe em Números</h2>
+              <p className="text-gray-600">Conheça os números que representam nossa equipe</p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-16 h-16 bg-[#BB4514]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    {stat.icon}
+                  </div>
+                  <div className="text-3xl font-bold text-[#004A24] mb-2">
+                    {stat.value}
+                  </div>
+                  <p className="text-gray-600">{stat.label}</p>
                 </div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold text-[#004A24] mb-2">{coordinator.name}</h3>
-              <p className="text-[#BB4514] font-semibold mb-3 text-base">{coordinator.role}</p>
-              <p className="text-[#121A0F] text-sm leading-relaxed">{coordinator.institution}</p>
+              ))}
             </div>
           </div>
-        </motion.section>
+        </section>
+
+        {/* Coordenação */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Coordenação</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+              {/* Imagem */}
+              <div className="lg:col-span-1">
+                <div className="relative h-96 lg:h-full">
+                  <img
+                    src={coordinator.image}
+                    alt={coordinator.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                </div>
+              </div>
+              
+              {/* Informações */}
+              <div className="lg:col-span-2 p-8 lg:p-12">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-2">
+                      {coordinator.name}
+                    </h3>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Award className="w-5 h-5 text-[#BB4514]" />
+                      <span className="text-lg font-medium text-[#BB4514]">{coordinator.role}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Building className="w-5 h-5 text-gray-600" />
+                      <span className="text-gray-600">{coordinator.institution}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 leading-relaxed">
+                    {coordinator.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {coordinator.specialties.map((specialty, index) => (
+                      <span
+                        key={index}
+                        className="bg-[#BB4514]/10 text-[#BB4514] px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex items-center gap-4 pt-4">
+                    <a
+                      href={`mailto:${coordinator.email}`}
+                      className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
+                    >
+                      <Mail className="w-5 h-5" />
+                      <span>Email</span>
+                    </a>
+                    <a
+                      href={coordinator.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                      <span>LinkedIn</span>
+                    </a>
+                    <a
+                      href={coordinator.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors"
+                    >
+                      <Globe className="w-5 h-5" />
+                      <span>Website</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Estudantes */}
-        <motion.section 
-          className="mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-8 md:mb-12 text-center">
-            Estudantes
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Estudantes e Pesquisadores</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {students.map((student, index) => (
-              <motion.div 
-                key={index} 
-                className="bg-white rounded-2xl shadow-lg p-6 md:p-8 text-center hover:shadow-xl transition-all duration-300 border border-[#E8F5E9] hover:border-[#BB4514]"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                onMouseEnter={() => setHoveredMember(student.name)}
+                onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className="relative mb-6">
+                <div className="relative h-64">
                   <img
                     src={student.image}
                     alt={student.name}
-                    className="w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full mx-auto object-cover border-3 border-[#BB4514] shadow-md"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-[#004A24] text-white rounded-full p-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-white font-bold text-lg mb-1">{student.name}</h3>
+                    <p className="text-white/90 text-sm">{student.role}</p>
                   </div>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-[#004A24] mb-2">{student.name}</h3>
-                <p className="text-[#121A0F] text-sm leading-relaxed">{student.institution}</p>
-              </motion.div>
+                
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <GraduationCap className="w-4 h-4 text-[#BB4514]" />
+                    <span className="text-sm text-gray-600">{student.institution}</span>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    {student.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {student.specialties.map((specialty, specIndex) => (
+                      <span
+                        key={specIndex}
+                        className="bg-[#BB4514]/10 text-[#BB4514] px-2 py-1 rounded-full text-xs font-medium"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <a
+                    href={`mailto:${student.email}`}
+                    className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors text-sm"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span>Contato</span>
+                  </a>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.section>
+        </section>
 
         {/* Colaboradores */}
-        <motion.section 
-          className="mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-8 md:mb-12 text-center">
-            Colaboradores
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Colaboradores</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {collaborators.map((collaborator, index) => (
-              <motion.div 
-                key={index} 
-                className="bg-white rounded-2xl shadow-lg p-6 md:p-8 text-center hover:shadow-xl transition-all duration-300 border border-[#E8F5E9] hover:border-[#004A24]"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                onMouseEnter={() => setHoveredMember(collaborator.name)}
+                onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className="relative mb-6">
+                <div className="relative h-64">
                   <img
                     src={collaborator.image}
                     alt={collaborator.name}
-                    className="w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full mx-auto object-cover border-3 border-[#004A24] shadow-md"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-[#BB4514] text-white rounded-full p-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-white font-bold text-lg mb-1">{collaborator.name}</h3>
+                    <p className="text-white/90 text-sm">{collaborator.role}</p>
                   </div>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-[#004A24] mb-2">{collaborator.name}</h3>
-                <p className="text-[#121A0F] text-sm leading-relaxed">{collaborator.institution}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Parceiros e Instituições */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-8 md:mb-12 text-center">
-            Parceiros e Instituições Envolvidas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
-            {institutions.map((institution, index) => (
-              <motion.div 
-                key={index} 
-                className="flex flex-col items-center text-center bg-white rounded-2xl shadow-lg p-8 md:p-10 hover:shadow-xl transition-all duration-300 border border-[#E8F5E9]"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="bg-white p-6 md:p-8 rounded-full mb-6 flex items-center justify-center border-2 border-[#004A24] shadow-md">
-                  <img
-                    src={institution.logo}
-                    alt={`${institution.name} Logo`}
-                    className="w-24 h-24 md:w-32 md:h-32 object-contain"
-                  />
+                
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Building className="w-4 h-4 text-[#BB4514]" />
+                    <span className="text-sm text-gray-600">{collaborator.institution}</span>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    {collaborator.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {collaborator.specialties.map((specialty, specIndex) => (
+                      <span
+                        key={specIndex}
+                        className="bg-[#BB4514]/10 text-[#BB4514] px-2 py-1 rounded-full text-xs font-medium"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <a
+                    href={`mailto:${collaborator.email}`}
+                    className="flex items-center gap-2 text-[#BB4514] hover:text-[#A03D12] transition-colors text-sm"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span>Contato</span>
+                  </a>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-[#004A24] mb-3">{institution.name}</h3>
-                <p className="text-[#121A0F] text-base md:text-lg font-medium">{institution.fullName}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.section>
+        </section>
+
+        {/* Instituições */}
+        <section className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#004A24] mb-6">Instituições Parceiras</h2>
+            <div className="w-24 h-1 bg-[#BB4514] mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {institutions.map((institution, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              >
+                <div className="text-center">
+                  <div className="w-24 h-24 mx-auto mb-6">
+                    <img
+                      src={institution.logo}
+                      alt={institution.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#004A24] mb-2">{institution.fullName}</h3>
+                  <p className="text-gray-600 mb-4">{institution.description}</p>
+                  <div className="flex justify-center">
+                    <span className="bg-[#BB4514]/10 text-[#BB4514] px-4 py-2 rounded-full text-sm font-medium">
+                      Parceira
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="text-center">
+          <div className="bg-gradient-to-r from-[#BB4514] to-[#8B4513] rounded-2xl p-8 md:p-12 text-white">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Quer fazer parte da nossa equipe?</h2>
+            <p className="text-lg mb-6 opacity-90">
+              Estamos sempre abertos a novas colaborações e parcerias
+            </p>
+            <a
+              href="/contato"
+              className="bg-white text-[#BB4514] px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+            >
+              <Mail className="w-5 h-5" />
+              Entre em Contato
+            </a>
+          </div>
+        </section>
       </div>
 
       <Footer />
