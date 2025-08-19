@@ -4,6 +4,8 @@ import { Icon } from 'leaflet';
 import { MapPin, Palette, Music, BookOpen, Camera, Users } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getCulturalWorks, getCulturalWorksStats, createCulturalWork, getCulturalCategories, getRegions } from '@/services/mapService';
+import { CulturalWorkWithDetails, CulturalCategory, Region } from '@/lib/supabase';
 import 'leaflet/dist/leaflet.css';
 import '@/components/map/leaflet-custom.css';
 
@@ -32,130 +34,41 @@ const Map = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const worksPerPage = 6;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [works, setWorks] = useState<CulturalWorkWithDetails[]>([]);
+  const [stats, setStats] = useState({
+    totalWorks: 0,
+    byCategory: {} as Record<string, number>,
+    byRegion: {} as Record<string, number>,
+  });
+  const [categories, setCategories] = useState<CulturalCategory[]>([]);
+  const [regions, setRegions] = useState<Region[]>([]);
 
-  // Dados de exemplo da Bacia do Rio Doce
-  const [sampleWorks, setSampleWorks] = useState([
-    {
-      id: 1,
-      title: "Mural da Resistência",
-      author: "Ana Silva",
-      description: "Mural retratando a história da Bacia do Rio Doce e as lutas das comunidades locais",
-      latitude: -19.9167,
-      longitude: -43.9345,
-      category: "Arte Urbana",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 2,
-      title: "Escultura do Rio",
-      author: "Carlos Mendes",
-      description: "Escultura em homenagem ao Rio Doce e sua importância para a região",
-      latitude: -19.8500,
-      longitude: -43.9500,
-      category: "Escultura",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 3,
-      title: "Poema das Águas",
-      author: "Maria Santos",
-      description: "Poema sobre a relação das comunidades com o Rio Doce",
-      latitude: -20.1500,
-      longitude: -42.8000,
-      category: "Poesia",
-      region: "Zona da Mata - MG"
-    },
-    {
-      id: 4,
-      title: "Mural da Memória",
-      author: "João Oliveira",
-      description: "Mural preservando a memória das comunidades ribeirinhas",
-      latitude: -19.7500,
-      longitude: -42.1500,
-      category: "Arte Urbana",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 5,
-      title: "Escultura da Esperança",
-      author: "Lucia Ferreira",
-      description: "Escultura simbolizando a esperança de recuperação do Rio Doce",
-      latitude: -19.4000,
-      longitude: -40.1000,
-      category: "Escultura",
-      region: "Espírito Santo"
-    },
-    {
-      id: 6,
-      title: "Canto do Rio",
-      author: "Pedro Costa",
-      description: "Composição musical inspirada no Rio Doce e sua história",
-      latitude: -19.6000,
-      longitude: -42.7000,
-      category: "Música",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 7,
-      title: "Fotografia da Memória",
-      author: "Roberto Lima",
-      description: "Série fotográfica documentando a vida das comunidades ribeirinhas",
-      latitude: -19.3000,
-      longitude: -42.9000,
-      category: "Fotografia",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 8,
-      title: "Teatro das Águas",
-      author: "Grupo Cultural Rio Doce",
-      description: "Peça teatral sobre a história e cultura da região",
-      latitude: -19.8000,
-      longitude: -43.2000,
-      category: "Teatro",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 9,
-      title: "Dança dos Pescadores",
-      author: "Cia de Dança Regional",
-      description: "Coreografia inspirada nos movimentos dos pescadores tradicionais",
-      latitude: -19.5000,
-      longitude: -40.5000,
-      category: "Dança",
-      region: "Espírito Santo"
-    },
-    {
-      id: 10,
-      title: "Literatura do Vale",
-      author: "Ana Paula Costa",
-      description: "Coletânea de contos sobre a vida no Vale do Rio Doce",
-      latitude: -19.7000,
-      longitude: -42.3000,
-      category: "Literatura",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 11,
-      title: "Artesanato em Barro",
-      author: "Dona Maria das Panelas",
-      description: "Trabalho artesanal em barro tradicional da região",
-      latitude: -19.9000,
-      longitude: -43.1000,
-      category: "Artesanato",
-      region: "Vale do Rio Doce - MG"
-    },
-    {
-      id: 12,
-      title: "Cinema Documentário",
-      author: "Cineasta Local",
-      description: "Documentário sobre a transformação da paisagem do Rio Doce",
-      latitude: -19.6000,
-      longitude: -42.6000,
-      category: "Cinema",
-      region: "Vale do Rio Doce - MG"
+  // Carregar dados do banco
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const [worksData, statsData, categoriesData, regionsData] = await Promise.all([
+        getCulturalWorks(),
+        getCulturalWorksStats(),
+        getCulturalCategories(),
+        getRegions()
+      ]);
+
+      setWorks(worksData);
+      setStats(statsData);
+      setCategories(categoriesData);
+      setRegions(regionsData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
     }
-  ]);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const handleMapClick = (lat: number, lng: number) => {
     if (isAddMode) {
@@ -165,36 +78,60 @@ const Map = () => {
     }
   };
 
-  const handleAddWork = (workData: any) => {
-    // Criar nova obra
-    const newWork = {
-      id: sampleWorks.length + 1,
-      title: workData.title,
-      author: workData.author,
-      description: workData.description,
-      category: workData.category,
-      region: workData.region,
-      latitude: selectedLocation?.lat || 0,
-      longitude: selectedLocation?.lng || 0
-    };
-    
-    // Adicionar à lista de obras
-    setSampleWorks(prevWorks => [...prevWorks, newWork]);
-    
-    // Em uma implementação real, isso seria salvo no Supabase
-    console.log('Obra adicionada:', newWork);
-    
-    setShowAddModal(false);
-    setSelectedLocation(null);
-    
-    // Mostrar mensagem de sucesso
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
-    
-    // Voltar para a primeira página se necessário
-    const totalPages = Math.ceil((sampleWorks.length + 1) / worksPerPage);
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
+  const handleAddWork = async (workData: any) => {
+    if (!selectedLocation) return;
+
+    try {
+      // Encontrar IDs das categorias e regiões
+      const selectedCategory = categories.find(cat => cat.name === workData.category);
+      const selectedRegion = regions.find(reg => reg.name === workData.region);
+
+      if (!selectedCategory || !selectedRegion) {
+        alert('Categoria ou região inválida');
+        return;
+      }
+
+      // Criar nova obra no banco
+      const newWork = await createCulturalWork({
+        title: workData.title,
+        author: workData.author,
+        description: workData.description,
+        region_id: selectedRegion.id,
+        category_id: selectedCategory.id,
+        type_id: 1, // Default type
+        material_ids: [1], // Default material
+        latitude: selectedLocation.lat,
+        longitude: selectedLocation.lng,
+        address: '',
+        image_urls: [],
+        contact_info: {},
+        status: 'active',
+        submitted_by: 'Usuário Público',
+        tags: [workData.category.toLowerCase(), workData.region.toLowerCase()]
+      });
+
+      if (newWork) {
+        // Recarregar dados para incluir a nova obra
+        await loadData();
+        
+        setShowAddModal(false);
+        setSelectedLocation(null);
+        
+        // Mostrar mensagem de sucesso
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+        
+        // Voltar para a primeira página se necessário
+        const totalPages = Math.ceil((works.length + 1) / worksPerPage);
+        if (currentPage > totalPages) {
+          setCurrentPage(totalPages);
+        }
+      } else {
+        alert('Erro ao adicionar obra');
+      }
+    } catch (error) {
+      console.error('Error adding work:', error);
+      alert('Erro ao adicionar obra');
     }
   };
 
@@ -238,7 +175,7 @@ const Map = () => {
                 <Palette className="w-8 h-8 text-[#BB4514]" />
               </div>
               <h3 className="text-sm font-medium text-[#004A24] mb-2">Total de Obras</h3>
-              <div className="text-3xl font-bold text-[#BB4514]">{sampleWorks.length}</div>
+              <div className="text-3xl font-bold text-[#BB4514]">{loading ? '...' : stats.totalWorks}</div>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
               <div className="flex items-center justify-center mb-3">
@@ -246,7 +183,7 @@ const Map = () => {
               </div>
               <h3 className="text-sm font-medium text-[#004A24] mb-2">Categorias</h3>
               <div className="text-3xl font-bold text-[#BB4514]">
-                {new Set(sampleWorks.map(w => w.category)).size}
+                {loading ? '...' : Object.keys(stats.byCategory).length}
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
@@ -255,7 +192,7 @@ const Map = () => {
               </div>
               <h3 className="text-sm font-medium text-[#004A24] mb-2">Regiões</h3>
               <div className="text-3xl font-bold text-[#BB4514]">
-                {new Set(sampleWorks.map(w => w.region)).size}
+                {loading ? '...' : Object.keys(stats.byRegion).length}
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
@@ -306,7 +243,7 @@ const Map = () => {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <MapClickHandler onMapClick={handleMapClick} />
-                {sampleWorks.map((work) => (
+                {works.map((work) => (
                   <Marker 
                     key={work.id} 
                     position={[work.latitude, work.longitude]}
@@ -318,10 +255,10 @@ const Map = () => {
                           <strong>Autor:</strong> {work.author}
                         </p>
                         <p className="text-sm text-gray-600 mb-2">
-                          <strong>Categoria:</strong> {work.category}
+                          <strong>Categoria:</strong> {work.category?.name || 'N/A'}
                         </p>
                         <p className="text-sm text-gray-600 mb-2">
-                          <strong>Região:</strong> {work.region}
+                          <strong>Região:</strong> {work.region?.name || 'N/A'}
                         </p>
                         <p className="text-sm text-gray-600">{work.description}</p>
                       </div>
@@ -338,10 +275,10 @@ const Map = () => {
           <h2 className="text-2xl font-bold text-[#004A24] mb-6">Obras Cadastradas</h2>
           
           {(() => {
-            const totalPages = Math.ceil(sampleWorks.length / worksPerPage);
+            const totalPages = Math.ceil(works.length / worksPerPage);
             const startIndex = (currentPage - 1) * worksPerPage;
             const endIndex = startIndex + worksPerPage;
-            const currentWorks = sampleWorks.slice(startIndex, endIndex);
+            const currentWorks = works.slice(startIndex, endIndex);
             
             return (
               <>
@@ -351,15 +288,13 @@ const Map = () => {
                       <div className="flex items-start justify-between mb-3">
                         <h3 className="font-bold text-lg text-[#004A24]">{work.title}</h3>
                         <div className="flex items-center space-x-1">
-                          {work.category === 'Arte Urbana' && <Palette className="w-4 h-4 text-[#BB4514]" />}
-                          {work.category === 'Música' && <Music className="w-4 h-4 text-[#BB4514]" />}
-                          {work.category === 'Poesia' && <BookOpen className="w-4 h-4 text-[#BB4514]" />}
-                          {work.category === 'Fotografia' && <Camera className="w-4 h-4 text-[#BB4514]" />}
-                          {work.category === 'Teatro' && <span className="text-[#BB4514]">🎭</span>}
-                          {work.category === 'Dança' && <span className="text-[#BB4514]">💃</span>}
-                          {work.category === 'Literatura' && <BookOpen className="w-4 h-4 text-[#BB4514]" />}
-                          {work.category === 'Artesanato' && <span className="text-[#BB4514]">🏺</span>}
-                          {work.category === 'Cinema' && <span className="text-[#BB4514]">🎬</span>}
+                          {work.category?.name === 'Artes Visuais' && <Palette className="w-4 h-4 text-[#BB4514]" />}
+                          {work.category?.name === 'Música' && <Music className="w-4 h-4 text-[#BB4514]" />}
+                          {work.category?.name === 'Literatura' && <BookOpen className="w-4 h-4 text-[#BB4514]" />}
+                          {work.category?.name === 'Fotografia' && <Camera className="w-4 h-4 text-[#BB4514]" />}
+                          {work.category?.name === 'Teatro e Performance' && <span className="text-[#BB4514]">🎭</span>}
+                          {work.category?.name === 'Artesanato' && <span className="text-[#BB4514]">🏺</span>}
+                          {work.category?.name === 'Cinema' && <span className="text-[#BB4514]">🎬</span>}
                         </div>
                       </div>
                       <div className="space-y-2 mb-4">
@@ -367,10 +302,10 @@ const Map = () => {
                           <span className="font-semibold text-[#004A24]">Autor:</span> {work.author}
                         </p>
                         <p className="text-sm text-gray-600">
-                          <span className="font-semibold text-[#004A24]">Categoria:</span> {work.category}
+                          <span className="font-semibold text-[#004A24]">Categoria:</span> {work.category?.name || 'N/A'}
                         </p>
                         <p className="text-sm text-gray-600">
-                          <span className="font-semibold text-[#004A24]">Região:</span> {work.region}
+                          <span className="font-semibold text-[#004A24]">Região:</span> {work.region?.name || 'N/A'}
                         </p>
                       </div>
                       <p className="text-sm text-gray-600 mb-4 italic">"{work.description}"</p>
@@ -590,17 +525,9 @@ const Map = () => {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-[#BB4514] transition-all"
                     >
                       <option value="">Selecione uma categoria</option>
-                      <option value="Arte Urbana">🎨 Arte Urbana</option>
-                      <option value="Escultura">🗿 Escultura</option>
-                      <option value="Pintura">🖼️ Pintura</option>
-                      <option value="Poesia">📝 Poesia</option>
-                      <option value="Música">🎵 Música</option>
-                      <option value="Literatura">📚 Literatura</option>
-                      <option value="Teatro">🎭 Teatro</option>
-                      <option value="Dança">💃 Dança</option>
-                      <option value="Artesanato">🏺 Artesanato</option>
-                      <option value="Fotografia">📸 Fotografia</option>
-                      <option value="Cinema">🎬 Cinema</option>
+                      {categories.map(category => (
+                        <option key={category.id} value={category.name}>{category.name}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -613,11 +540,9 @@ const Map = () => {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:border-[#BB4514] transition-all"
                     >
                       <option value="">Selecione uma região</option>
-                      <option value="Vale do Rio Doce - MG">🏔️ Vale do Rio Doce - MG</option>
-                      <option value="Zona da Mata - MG">🌳 Zona da Mata - MG</option>
-                      <option value="Espírito Santo">🏖️ Espírito Santo</option>
-                      <option value="Serra da Mantiqueira - MG">⛰️ Serra da Mantiqueira - MG</option>
-                      <option value="Serra do Espinhaço - MG">🏔️ Serra do Espinhaço - MG</option>
+                      {regions.map(region => (
+                        <option key={region.id} value={region.name}>{region.name}</option>
+                      ))}
                     </select>
                   </div>
                 </div>

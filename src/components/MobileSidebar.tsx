@@ -14,7 +14,7 @@ const MobileSidebar = () => {
     { path: '/blog', label: 'Blog' },
     { path: '/acervo', label: 'Acervo Digital' },
     { path: '/contato', label: 'Contato' },
-    { path: '/mapa', label: 'Mapa Interactivo' },
+    { path: '/mapa', label: 'Mapa Interativo' },
   ];
 
   const toggleSidebar = () => {

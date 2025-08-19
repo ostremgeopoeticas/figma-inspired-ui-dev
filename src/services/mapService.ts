@@ -118,6 +118,43 @@ export const getCulturalWorks = async (filters?: MapFilters): Promise<CulturalWo
   }
 };
 
+// Função específica para admin que inclui todos os status
+export const getAllCulturalWorksForAdmin = async (filters?: { searchTerm?: string; status?: string; categoryId?: number }): Promise<CulturalWorkWithDetails[]> => {
+  try {
+    let query = supabaseAdmin
+      .from('cultural_works')
+      .select(`
+        *,
+        region:regions(*),
+        category:cultural_categories(*),
+        type:cultural_types(*),
+        materials:materials(*)
+      `)
+      .order('created_at', { ascending: false });
+
+    // Aplicar filtros
+    if (filters) {
+      if (filters.searchTerm) {
+        query = query.or(`title.ilike.%${filters.searchTerm}%,author.ilike.%${filters.searchTerm}%,description.ilike.%${filters.searchTerm}%`);
+      }
+      if (filters.status && filters.status !== 'todos') {
+        query = query.eq('status', filters.status);
+      }
+      if (filters.categoryId) {
+        query = query.eq('category_id', filters.categoryId);
+      }
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching all cultural works for admin:', error);
+    return [];
+  }
+};
+
 export const getCulturalWorkById = async (id: number): Promise<CulturalWorkWithDetails | null> => {
   try {
     const { data, error } = await supabase
@@ -242,6 +279,21 @@ export const deleteCulturalWork = async (id: number): Promise<boolean> => {
   }
 };
 
+export const updateCulturalWorkStatus = async (id: number, status: 'active' | 'inactive' | 'pending'): Promise<boolean> => {
+  try {
+    const { error } = await supabaseAdmin
+      .from('cultural_works')
+      .update({ status })
+      .eq('id', id);
+
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Error updating cultural work status:', error);
+    return false;
+  }
+};
+
 // Funções para busca e estatísticas
 export const searchCulturalWorks = async (searchTerm: string, limit: number = 20): Promise<CulturalWorkWithDetails[]> => {
   try {
@@ -312,6 +364,61 @@ export const getCulturalWorksStats = async () => {
       totalWorks: 0,
       byCategory: {},
       byRegion: {},
+    };
+  }
+};
+
+// Estatísticas específicas para admin (incluindo todos os status)
+export const getAdminCulturalWorksStats = async () => {
+  try {
+    const { count: totalWorks, error: totalError } = await supabaseAdmin
+      .from('cultural_works')
+      .select('*', { count: 'exact', head: true });
+
+    const { count: activeWorks, error: activeError } = await supabaseAdmin
+      .from('cultural_works')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'active');
+
+    const { count: pendingWorks, error: pendingError } = await supabaseAdmin
+      .from('cultural_works')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending');
+
+    const { count: inactiveWorks, error: inactiveError } = await supabaseAdmin
+      .from('cultural_works')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'inactive');
+
+    const { count: totalCategories, error: categoriesError } = await supabaseAdmin
+      .from('cultural_categories')
+      .select('*', { count: 'exact', head: true });
+
+    const { count: totalRegions, error: regionsError } = await supabaseAdmin
+      .from('regions')
+      .select('*', { count: 'exact', head: true });
+
+    if (totalError || activeError || pendingError || inactiveError || categoriesError || regionsError) {
+      throw totalError || activeError || pendingError || inactiveError || categoriesError || regionsError;
+    }
+
+    return {
+      totalWorks: totalWorks || 0,
+      activeWorks: activeWorks || 0,
+      pendingWorks: pendingWorks || 0,
+      inactiveWorks: inactiveWorks || 0,
+      totalCategories: totalCategories || 0,
+      totalRegions: totalRegions || 0,
+    };
+  } catch (error) {
+    console.error('Error fetching admin cultural works stats:', error);
+    return {
+      totalWorks: 0,
+      activeWorks: 0,
+      pendingWorks: 0,
+      inactiveWorks: 0,
+      totalCategories: 0,
+      totalRegions: 0,
     };
   }
 };

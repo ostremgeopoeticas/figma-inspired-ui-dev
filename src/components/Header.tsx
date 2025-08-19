@@ -24,7 +24,7 @@ const Header = () => {
         {/* Navegação desktop - oculta em mobile */}
         <div className="hidden md:flex justify-end items-start gap-8 flex-1">
           <nav className="flex h-10 items-center gap-[17px]" role="navigation" aria-label="Menu principal">
-            {['sobre', 'equipe', 'eventos', 'blog', 'acervo', 'contato'].map((item, index) => (
+            {['sobre', 'equipe', 'eventos', 'blog', 'acervo', 'mapa', 'contato'].map((item, index) => (
               <motion.div
                 key={item}
                 initial={{ opacity: 0, y: -20 }}
@@ -40,6 +40,7 @@ const Header = () => {
                   {item === 'eventos' && 'Eventos'}
                   {item === 'blog' && 'Blog'}
                   {item === 'acervo' && 'Acervo Digital'}
+                  {item === 'mapa' && 'Mapa Interativo'}
                   {item === 'contato' && 'Contato'}
                 </Link>
               </motion.div>
@@ -52,7 +53,7 @@ const Header = () => {
           >
             <Link to="/mapa" className="flex w-[134px] h-10 justify-center items-center gap-2.5 bg-[#4B5A43] p-2.5 rounded-lg max-md:text-xs hover:bg-[#5a6b51] transition-colors">
               <span className="text-[#F6D8B8] text-center text-sm font-bold leading-[21px] max-md:text-xs">
-                Mapa Interactivo
+                Mapa Interativo
               </span>
             </Link>
           </motion.div>

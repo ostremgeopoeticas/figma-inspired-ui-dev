@@ -11,6 +11,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import AdminBlog from "./pages/AdminBlog";
 import AdminLogin from "./pages/AdminLogin";
+import AdminMap from "./pages/AdminMap";
 import Archive from "./pages/Archive";
 import Map from "./pages/Map";
 import Contact from "./pages/Contact";
@@ -36,6 +37,11 @@ const App = () => (
           <Route path="/admin/blog" element={
             <ProtectedRoute>
               <AdminBlog />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/mapa" element={
+            <ProtectedRoute>
+              <AdminMap />
             </ProtectedRoute>
           } />
           <Route path="/acervo" element={<Archive />} />
