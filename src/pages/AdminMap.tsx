@@ -17,7 +17,8 @@ import {
   updateCulturalWorkStatus, 
   deleteCulturalWork,
   getCulturalCategories,
-  getRegions
+  getRegions,
+  createCulturalWork
 } from '@/services/mapService';
 import { CulturalWorkWithDetails, CulturalCategory, Region } from '@/lib/supabase';
 import 'leaflet/dist/leaflet.css';
@@ -406,7 +407,7 @@ const AdminMap = () => {
                       <div className="p-2">
                         <h3 className="font-bold text-sm">{work.title}</h3>
                         <p className="text-xs text-gray-600">Por: {work.author}</p>
-                        <p className="text-xs text-gray-600">{work.category}</p>
+                        <p className="text-xs text-gray-600">{work.category.name}</p>
                       </div>
                     </Popup>
                   </Marker>

@@ -396,7 +396,7 @@ const AdminBlog = () => {
                 <CardTitle className="flex items-center justify-between">
                   <span>Posts do Blog</span>
                   <Button 
-                    onClick={() => document.querySelector('[data-value="create"]')?.click()}
+                    onClick={() => (document.querySelector('[data-value="create"]') as HTMLElement)?.click()}
                     className="bg-[#BB4514] hover:bg-[#A03D12]"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

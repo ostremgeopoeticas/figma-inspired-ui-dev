@@ -222,6 +222,7 @@ const AddWorkModal: React.FC<AddWorkModalProps> = ({
           website: formData.contact_website || undefined,
         },
         tags: formData.tags,
+        status: 'active' as const,
         submitted_by: 'usuário', // TODO: integrar com sistema de autenticação
       };
 
