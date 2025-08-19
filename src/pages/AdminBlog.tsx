@@ -615,26 +615,39 @@ const AdminBlog = () => {
                   
                   <Separator />
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="published"
-                        name="published"
-                        checked={formData.published}
-                        onChange={handlePublishChange}
-                        className="rounded border-slate-300 text-[#BB4514] focus:ring-[#BB4514]"
-                      />
-                      <Label htmlFor="published" className="text-sm font-medium">
-                        Publicar post
-                      </Label>
-                    </div>
-                    {formData.published && (
-                      <Badge variant="default" className="bg-green-100 text-green-800">
-                        Será publicado imediatamente
-                      </Badge>
-                    )}
-                  </div>
+                  <div className="flex items-center mb-6">
+            <label className="block text-sm font-medium text-[#121A0F] mr-3">
+              Status:
+            </label>
+            <button
+              type="button"
+              onClick={() => handlePublishChange({ target: { checked: !formData.published } } as React.ChangeEvent<HTMLInputElement>)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#BB4514] focus:ring-offset-2 ${
+                formData.published ? 'bg-[#BB4514]' : 'bg-gray-300'
+              }`}
+              role="switch"
+              aria-checked={formData.published}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out ${
+                  formData.published ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className="ml-2 text-sm font-medium text-[#121A0F]">
+              {formData.published ? (
+                <span className="flex items-center">
+                  <span className="h-2 w-2 rounded-full bg-green-500 mr-1"></span>
+                  Publicado
+                </span>
+              ) : (
+                <span className="flex items-center">
+                  <span className="h-2 w-2 rounded-full bg-yellow-500 mr-1"></span>
+                  Rascunho
+                </span>
+              )}
+            </span>
+          </div>
                   
                   <div className="flex justify-end space-x-4">
                     {editingPost && (
