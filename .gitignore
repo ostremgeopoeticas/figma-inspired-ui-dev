@@ -19,7 +19,8 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-.\SE_BASEIE_NESSA
+./SE_BASEIE_NESSA_PASTA_MAPA_CULTURAL
+.\SE_BASEIE_NESSA_PASTA_MAPA_CULTURAL
 
 # Editor directories and files
 .vscode/*

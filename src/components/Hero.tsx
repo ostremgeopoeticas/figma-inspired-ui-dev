@@ -31,7 +31,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Explorando as expressões culturais e artísticas na cuenca do rio, combinando arte, geografia e memória.
+            Explorando as expressões culturais e artísticas na nas beiras do rio, combinando arte, geografia e memória.
           </motion.p>
           <motion.div 
             className="flex flex-wrap gap-4"

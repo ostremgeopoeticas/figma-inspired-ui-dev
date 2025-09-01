@@ -5,11 +5,11 @@ import { Users, Award, GraduationCap, Building, Mail, Linkedin, Globe, Star } fr
 import teamHero from '@/assets/banner_equipe_pag.png';
 import anaLuizaDrummond from '@/assets/ana_luiza_drummond.png';
 import angelaMariaPena from '@/assets/angela_maria_pena_nova.png';
-import isabelaStefani from '@/assets/isabela_stefani_de_paula.png';
-import riannMatheus from '@/assets/riann_matheus_dias.png';
+import isabelaStefani from '@/assets/isabela_leao_de_paula_foto.png';
+import riannMatheus from '@/assets/riann_matheus_dias_da_costa.png';
 import helenaAssuncao from '@/assets/prof_dra_helena_assuncao.png';
 import ranielleFigueiredo from '@/assets/prof_dra_ranielle.png';
-import jorgeTeodoro from '@/assets/prof_dr_jorge.png';
+import jorgeTeodoro from '@/assets/prof_dr_jorge_benedito_de_freitas_teodoro.png';
 import logoIFMG from '@/assets/logo_ifmg.png';
 import logoUFOP from '@/assets/logo_ufop.png';
 
@@ -182,13 +182,14 @@ const Team = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
               {/* Imagem */}
               <div className="lg:col-span-1">
-                <div className="relative h-96 lg:h-full">
-                  <img
-                    src={coordinator.image}
-                    alt={coordinator.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                <div className="relative h-[500px] lg:h-full bg-gradient-to-br from-[#BB4514]/10 to-[#8B4513]/10 flex items-center justify-center">
+                  <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img
+                      src={coordinator.image}
+                      alt={coordinator.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
               
@@ -272,20 +273,24 @@ const Team = () => {
                 onMouseEnter={() => setHoveredMember(student.name)}
                 onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className="relative h-64">
-                  <img
-                    src={student.image}
-                    alt={student.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg mb-1">{student.name}</h3>
-                    <p className="text-white/90 text-sm">{student.role}</p>
+                <div className="relative h-96 bg-gradient-to-br from-[#BB4514]/10 to-[#8B4513]/10">
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                    <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                      <img
+                        src={student.image}
+                        alt={student.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
                 
                 <div className="p-6">
+                  <div className="text-center mb-4">
+                    <h3 className="text-[#004A24] font-bold text-xl mb-2">{student.name}</h3>
+                    <p className="text-[#BB4514] text-base font-medium">{student.role}</p>
+                  </div>
+                  
                   <div className="flex items-center gap-2 mb-3">
                     <GraduationCap className="w-4 h-4 text-[#BB4514]" />
                     <span className="text-sm text-gray-600">{student.institution}</span>
@@ -334,20 +339,23 @@ const Team = () => {
                 onMouseEnter={() => setHoveredMember(collaborator.name)}
                 onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className="relative h-64">
-                  <img
-                    src={collaborator.image}
-                    alt={collaborator.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg mb-1">{collaborator.name}</h3>
-                    <p className="text-white/90 text-sm">{collaborator.role}</p>
+                <div className="relative h-96 bg-gradient-to-br from-[#BB4514]/10 to-[#8B4513]/10">
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                    <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                      <img
+                        src={collaborator.image}
+                        alt={collaborator.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
                 
                 <div className="p-6">
+                                    <div className="text-center mb-4">
+                    <h3 className="text-[#004A24] font-bold text-xl mb-2">{collaborator.name}</h3>
+                    <p className="text-[#BB4514] text-base font-medium">{collaborator.role}</p>
+                  </div>
                   <div className="flex items-center gap-2 mb-3">
                     <Building className="w-4 h-4 text-[#BB4514]" />
                     <span className="text-sm text-gray-600">{collaborator.institution}</span>
